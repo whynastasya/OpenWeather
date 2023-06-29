@@ -134,8 +134,8 @@ final class AuthorizationViewController: UIViewController {
 //            let alertController = UIAlertController(title: "", message: "Неверно введены логин и/или пароль", preferredStyle: .alert)
 //            alertController.addAction(UIAlertAction(title: "Ок", style: .destructive))
 //        }
-//        let tabBarController = TabBarControllerBuilder.createTabBarController()
-//        tabBarController.modalPresentationStyle = .fullScreen
-//        present(tabBarController, animated: true)
+        let tabBarController = TabBarControllerBuilder.createTabBarController()
+        tabBarController.modalPresentationStyle = .fullScreen
+        present(tabBarController, animated: true)
     }
 }

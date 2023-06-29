@@ -58,7 +58,9 @@ final class AuthorizationView: UIView {
         leftView.frame = CGRectMake(0, 0, 35, 35)
         leftView.addSubview(loginImageView)
         loginTextField.leftViewMode = .always
-        loginTextField.leftView = leftView
+//        loginTextField.leftView = leftView
+        loginTextField.rightViewMode = .always
+        loginTextField.rightView = leftView
         loginTextField.placeholder = "example@mail.com"
         setupLoginTextFieldConstraints()
     }

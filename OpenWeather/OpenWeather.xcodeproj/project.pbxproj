@@ -15,6 +15,17 @@
 		EE9B12782A4DAF81002235B3 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9B12772A4DAF81002235B3 /* AuthorizationViewController.swift */; };
 		EE9B127A2A4DAFC6002235B3 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9B12792A4DAFC6002235B3 /* GradientView.swift */; };
 		EE9B127C2A4DAFCC002235B3 /* AuthorizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9B127B2A4DAFCC002235B3 /* AuthorizationView.swift */; };
+		EE9B12812A4DB103002235B3 /* TabBarControllerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9B12802A4DB103002235B3 /* TabBarControllerBuilder.swift */; };
+		EE9B12852A4DB10C002235B3 /* CityWeatherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9B12832A4DB10C002235B3 /* CityWeatherCollectionViewCell.swift */; };
+		EE9B12862A4DB10C002235B3 /* CityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9B12842A4DB10C002235B3 /* CityTableViewCell.swift */; };
+		EE9B128B2A4DB114002235B3 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9B12882A4DB114002235B3 /* City.swift */; };
+		EE9B128C2A4DB114002235B3 /* WeatherType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9B12892A4DB114002235B3 /* WeatherType.swift */; };
+		EE9B128D2A4DB114002235B3 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9B128A2A4DB114002235B3 /* Weather.swift */; };
+		EE9B128F2A4DB11B002235B3 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9B128E2A4DB11B002235B3 /* WeatherData.swift */; };
+		EE9B12912A4DB122002235B3 /* CityWeatherCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9B12902A4DB122002235B3 /* CityWeatherCollectionViewController.swift */; };
+		EE9B12932A4DB128002235B3 /* CitiesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9B12922A4DB128002235B3 /* CitiesTableViewController.swift */; };
+		EE9B12952A4DB12C002235B3 /* HometownViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9B12942A4DB12C002235B3 /* HometownViewController.swift */; };
+		EED03A6C2A6AF58F000A3196 /* HeaderWeatherCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED03A6B2A6AF58F000A3196 /* HeaderWeatherCollectionReusableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +39,17 @@
 		EE9B12772A4DAF81002235B3 /* AuthorizationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
 		EE9B12792A4DAFC6002235B3 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		EE9B127B2A4DAFCC002235B3 /* AuthorizationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationView.swift; sourceTree = "<group>"; };
+		EE9B12802A4DB103002235B3 /* TabBarControllerBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarControllerBuilder.swift; sourceTree = "<group>"; };
+		EE9B12832A4DB10C002235B3 /* CityWeatherCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityWeatherCollectionViewCell.swift; sourceTree = "<group>"; };
+		EE9B12842A4DB10C002235B3 /* CityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityTableViewCell.swift; sourceTree = "<group>"; };
+		EE9B12882A4DB114002235B3 /* City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
+		EE9B12892A4DB114002235B3 /* WeatherType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherType.swift; sourceTree = "<group>"; };
+		EE9B128A2A4DB114002235B3 /* Weather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
+		EE9B128E2A4DB11B002235B3 /* WeatherData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
+		EE9B12902A4DB122002235B3 /* CityWeatherCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityWeatherCollectionViewController.swift; sourceTree = "<group>"; };
+		EE9B12922A4DB128002235B3 /* CitiesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CitiesTableViewController.swift; sourceTree = "<group>"; };
+		EE9B12942A4DB12C002235B3 /* HometownViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HometownViewController.swift; sourceTree = "<group>"; };
+		EED03A6B2A6AF58F000A3196 /* HeaderWeatherCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderWeatherCollectionReusableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +85,13 @@
 				EE9B12632A4DAF47002235B3 /* AppDelegate.swift */,
 				EE9B12652A4DAF47002235B3 /* SceneDelegate.swift */,
 				EE9B12772A4DAF81002235B3 /* AuthorizationViewController.swift */,
+				EE9B12942A4DB12C002235B3 /* HometownViewController.swift */,
+				EE9B12922A4DB128002235B3 /* CitiesTableViewController.swift */,
+				EE9B12902A4DB122002235B3 /* CityWeatherCollectionViewController.swift */,
+				EE9B128E2A4DB11B002235B3 /* WeatherData.swift */,
+				EE9B12802A4DB103002235B3 /* TabBarControllerBuilder.swift */,
+				EE9B12872A4DB114002235B3 /* Models */,
+				EE9B12822A4DB10C002235B3 /* Cells */,
 				EE9B127F2A4DB00B002235B3 /* Views */,
 				EE9B126C2A4DAF49002235B3 /* Assets.xcassets */,
 				EE9B12692A4DAF47002235B3 /* Main.storyboard */,
@@ -79,6 +108,26 @@
 				EE9B127B2A4DAFCC002235B3 /* AuthorizationView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		EE9B12822A4DB10C002235B3 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				EE9B12832A4DB10C002235B3 /* CityWeatherCollectionViewCell.swift */,
+				EED03A6B2A6AF58F000A3196 /* HeaderWeatherCollectionReusableView.swift */,
+				EE9B12842A4DB10C002235B3 /* CityTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		EE9B12872A4DB114002235B3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				EE9B12882A4DB114002235B3 /* City.swift */,
+				EE9B12892A4DB114002235B3 /* WeatherType.swift */,
+				EE9B128A2A4DB114002235B3 /* Weather.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -152,11 +201,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE9B128C2A4DB114002235B3 /* WeatherType.swift in Sources */,
 				EE9B12782A4DAF81002235B3 /* AuthorizationViewController.swift in Sources */,
+				EE9B12912A4DB122002235B3 /* CityWeatherCollectionViewController.swift in Sources */,
+				EE9B12852A4DB10C002235B3 /* CityWeatherCollectionViewCell.swift in Sources */,
+				EE9B12932A4DB128002235B3 /* CitiesTableViewController.swift in Sources */,
+				EE9B128D2A4DB114002235B3 /* Weather.swift in Sources */,
+				EE9B12952A4DB12C002235B3 /* HometownViewController.swift in Sources */,
+				EE9B128B2A4DB114002235B3 /* City.swift in Sources */,
 				EE9B12642A4DAF47002235B3 /* AppDelegate.swift in Sources */,
+				EED03A6C2A6AF58F000A3196 /* HeaderWeatherCollectionReusableView.swift in Sources */,
 				EE9B127A2A4DAFC6002235B3 /* GradientView.swift in Sources */,
 				EE9B127C2A4DAFCC002235B3 /* AuthorizationView.swift in Sources */,
 				EE9B12662A4DAF47002235B3 /* SceneDelegate.swift in Sources */,
+				EE9B12862A4DB10C002235B3 /* CityTableViewCell.swift in Sources */,
+				EE9B128F2A4DB11B002235B3 /* WeatherData.swift in Sources */,
+				EE9B12812A4DB103002235B3 /* TabBarControllerBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
