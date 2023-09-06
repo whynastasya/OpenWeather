@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE4A5A7D2A956804002D12BD /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4A5A7C2A956804002D12BD /* WeatherService.swift */; };
 		EE9B12642A4DAF47002235B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9B12632A4DAF47002235B3 /* AppDelegate.swift */; };
 		EE9B12662A4DAF47002235B3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9B12652A4DAF47002235B3 /* SceneDelegate.swift */; };
 		EE9B126B2A4DAF47002235B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE9B12692A4DAF47002235B3 /* Main.storyboard */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EE4A5A7C2A956804002D12BD /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 		EE9B12602A4DAF47002235B3 /* OpenWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE9B12632A4DAF47002235B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE9B12652A4DAF47002235B3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +65,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EE4A5A7B2A9567D8002D12BD /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				EE4A5A7C2A956804002D12BD /* WeatherService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		EE9B12572A4DAF47002235B3 = {
 			isa = PBXGroup;
 			children = (
@@ -82,6 +92,7 @@
 		EE9B12622A4DAF47002235B3 /* OpenWeather */ = {
 			isa = PBXGroup;
 			children = (
+				EE4A5A7B2A9567D8002D12BD /* Service */,
 				EE9B12632A4DAF47002235B3 /* AppDelegate.swift */,
 				EE9B12652A4DAF47002235B3 /* SceneDelegate.swift */,
 				EE9B12772A4DAF81002235B3 /* AuthorizationViewController.swift */,
@@ -215,6 +226,7 @@
 				EE9B127C2A4DAFCC002235B3 /* AuthorizationView.swift in Sources */,
 				EE9B12662A4DAF47002235B3 /* SceneDelegate.swift in Sources */,
 				EE9B12862A4DB10C002235B3 /* CityTableViewCell.swift in Sources */,
+				EE4A5A7D2A956804002D12BD /* WeatherService.swift in Sources */,
 				EE9B128F2A4DB11B002235B3 /* WeatherData.swift in Sources */,
 				EE9B12812A4DB103002235B3 /* TabBarControllerBuilder.swift in Sources */,
 			);
