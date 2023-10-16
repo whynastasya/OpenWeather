@@ -8,8 +8,6 @@
 import UIKit
 
 final class CityWeatherCollectionViewController: UICollectionViewController {
-
-    var city = City(name: "", time: "", weather: [])
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,16 +27,17 @@ final class CityWeatherCollectionViewController: UICollectionViewController {
     }
     
     private func setupNavigationBar() {
-        navigationItem.title = city.name
+//        navigationItem.title = city.name
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        city.weather.count
+//        city.weather.count
+        12
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CityWeatherCollectionViewCell.identifier, for: indexPath) as! CityWeatherCollectionViewCell
-        cell.configure(weather: city.weather[indexPath.row])
+//        cell.configure(weather: city.weather[indexPath.row])
         return cell
     }
     

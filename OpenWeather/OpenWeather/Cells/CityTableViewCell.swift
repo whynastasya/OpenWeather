@@ -41,7 +41,7 @@ final class CityTableViewCell: UITableViewCell {
         contentView.addSubview(temperatureNowLabel)
         temperatureNowLabel.translatesAutoresizingMaskIntoConstraints = false
         temperatureNowLabel.textColor = .darkGray
-        temperatureNowLabel.font = UIFont.systemFont(ofSize: 27, weight: .medium)
+        temperatureNowLabel.font = UIFont.systemFont(ofSize: 25, weight: .medium)
         NSLayoutConstraint.activate([
             temperatureNowLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             temperatureNowLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
@@ -61,7 +61,7 @@ final class CityTableViewCell: UITableViewCell {
     
     func configure(city: City) {
         cityNameLabel.text = city.name
-        temperatureNowLabel.text = city.weather[0].temperature + "°"
+//        temperatureNowLabel.text = city.weather[0].maxTemperature + "°C"
         cityTimeLabel.text = city.time
     }
 }

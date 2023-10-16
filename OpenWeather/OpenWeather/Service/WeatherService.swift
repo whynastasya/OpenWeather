@@ -9,32 +9,63 @@ import Foundation
 
 class WeatherService {
     static let session = URLSession(configuration: URLSessionConfiguration.default)
-    static var url = {
-        var url = URLComponents()
-        url.scheme = "http"
-        url.host = "api.openweathermap.org"
-        url.path = "/data/2.5/weather"
-        return url
-    }()
     
-    static func loadCityWeather(city: String) {
-        url.queryItems = [
-            URLQueryItem(name: "q", value: "Moscow"),
+//    static var urlComponents = {
+//        var url = URLComponents()
+//        url.scheme = "http"
+//        url.host = "api.openweathermap.org"
+//        url.path = "/data/2.5/forecast"
+//        return url
+//    }()
+    
+//    static func loadCityWeather(city: String, resultHandler: @escaping (City) -> Void) {
+//        var cityWeather = City(json: [:], name: "", weather: [])
+//        urlComponents.queryItems = [
+//            URLQueryItem(name: "q", value: city),
+//            URLQueryItem(name: "units", value: "metric"),
+//            URLQueryItem(name: "appid", value: "c0cdd0113ca4184edd72a7bbe8040913")
+//        ]
+//        
+//        let task = session.dataTask(with: urlComponents.url!) { (data, response, error) in
+//            let json = try? JSONSerialization.jsonObject(
+//                with: data!,
+//                options: JSONSerialization.ReadingOptions.mutableContainers
+//            )
+//            let array = json as! [String : Any]
+//            let weathersJSON = array["list"] as! NSArray
+//            let weather = weathersJSON.map { Weather(json: $0 as! [String: Any]) }
+//            cityWeather = City(json: array, name: city, weather: weather)
+//            resultHandler(cityWeather)
+//        }
+//        task.resume()
+//    }
+    
+    static func loadCityWeather(city: String) async throws -> City {
+        var urlComponents = {
+            var url = URLComponents()
+            url.scheme = "http"
+            url.host = "api.openweathermap.org"
+            url.path = "/data/2.5/forecast"
+            return url
+        }()
+        
+        urlComponents.queryItems = [
+            URLQueryItem(name: "q", value: city),
+            URLQueryItem(name: "units", value: "metric"),
             URLQueryItem(name: "appid", value: "c0cdd0113ca4184edd72a7bbe8040913")
         ]
         
-        let task = session.dataTask(with: url.url!) { (data, response, error) in
-            let json = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
-            print(json)
-        }
-        task.resume()
-    }
-    
-    static func loadCityWeather() async {
-        do {
-            try await session.data(from: url.url!)
-        } catch {
-            print()
-        }
+        let data = try await session.data(from: urlComponents.url!)
+        let json = try? JSONSerialization.jsonObject(
+            with: data.0,
+            options: JSONSerialization.ReadingOptions.mutableContainers
+        )
+        let array = json as! [String : Any]
+        let weathersJSON = array["list"] as! NSArray
+        let weather = weathersJSON.map { Weather(json: $0 as! [String: Any]) }
+        let cityWeather = City(json: array, name: city, weather: weather)
+        return cityWeather
     }
 }
+
+

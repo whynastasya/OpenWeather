@@ -98,9 +98,9 @@ final class CityWeatherCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(weather: Weather) {
-        createWeatherImage(with: weather.weatherType)
-        dateLabel.text = weather.date
-        temperatureLabel.text = weather.temperature + "°"
-        defineBackgfoundColor(with: Int(weather.temperature) ?? 0)
+//        createWeatherImage(with: weather.weatherType)
+//        dateLabel.text = weather.date
+//        temperatureLabel.text = weather.temperature + "°"
+//        defineBackgfoundColor(with: Int(weather.temperature) ?? 0)
     }
 }

@@ -137,6 +137,5 @@ final class AuthorizationViewController: UIViewController {
         let tabBarController = TabBarControllerBuilder.createTabBarController()
         tabBarController.modalPresentationStyle = .fullScreen
         present(tabBarController, animated: true)
-        WeatherService.loadCityWeather(city: "")
     }
 }

@@ -9,8 +9,32 @@ import UIKit
 
 final class CitiesTableViewController: UITableViewController {
 
+    let citiesNames = [
+    "Moscow",
+    "Saint Petersburg",
+    "Novosibirsk",
+    "Yekaterinburg",
+    "Nizhny Novgorod",
+    "Krasnoyarsk",
+    "Chelyabinsk",
+    "Ufa",
+    "Rostov-on-Don",
+    "Krasnodar",
+    "Omsk",
+    "Voronezh",
+    "Perm",
+    "Volgograd"
+]
+    var citiesWeather = [City]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        for cityName in citiesNames {
+            Task {
+                let cityWeather = try await WeatherService.loadCityWeather(city: cityName)
+                citiesWeather.append(cityWeather)
+                self.tableView.reloadData()
+            }
+        }
         view.backgroundColor = .white
         tableView.register(CityTableViewCell.self, forCellReuseIdentifier: CityTableViewCell.identifier)
         setupNavigationBar()
@@ -23,12 +47,12 @@ final class CitiesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        cities.count
+        citiesWeather.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CityTableViewCell.identifier) as! CityTableViewCell
-        cell.configure(city: cities[indexPath.row])
+        cell.configure(city: citiesWeather[indexPath.row])
         return cell
     }
     
@@ -38,14 +62,14 @@ final class CitiesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            cities.remove(at: indexPath.row)
+            citiesWeather.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cityWeatherCollectionViewController = CityWeatherCollectionViewController(collectionViewLayout: UICollectionViewLayout())
-        cityWeatherCollectionViewController.city = cities[indexPath.row]
+//        cityWeatherCollectionViewController.city = cities[indexPath.row]
         navigationController?.pushViewController(cityWeatherCollectionViewController, animated: true)
     }
     
@@ -54,10 +78,10 @@ final class CitiesTableViewController: UITableViewController {
         alertController.addTextField()
         alertController.addAction(UIAlertAction(title: "Ок", style: .default, handler: {_ in
             let text = alertController.textFields?.first?.text
-            if !text!.isEmpty && !cities.contains(where: { $0.name == text }) {
-                cities.append(City(name: text!, time: "00:45", weather: weather))
-                self.tableView.reloadData()
-            }
+//            if !text!.isEmpty && !cities.contains(where: { $0.name == text }) {
+//                cities.append(City(name: text!, time: "00:45", weather: weather))
+//                self.tableView.reloadData()
+//            }
         }))
         present(alertController, animated: true)
     }
