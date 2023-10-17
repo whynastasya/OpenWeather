@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HeaderWeatherCollectionReusableView: UICollectionReusableView {
+final class HeaderWeatherCollectionReusableView: UICollectionReusableView {
     override func layoutSubviews() {
         super.layoutSubviews()
     }

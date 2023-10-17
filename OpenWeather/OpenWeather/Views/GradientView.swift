@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GradientView: UIView {
+final class GradientView: UIView {
     
     private var gradientColors = [UIColor.systemPurple, UIColor.systemOrange].map( { $0.cgColor })
     

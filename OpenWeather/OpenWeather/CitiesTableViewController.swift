@@ -44,6 +44,7 @@ final class CitiesTableViewController: UITableViewController, UISearchController
                 let city = try await WeatherService.loadCityWeather(city: cityName)
                 cities.append(city)
                 self.tableView.reloadData()
+                
             }
         }
         view.backgroundColor = .white
@@ -87,7 +88,11 @@ final class CitiesTableViewController: UITableViewController, UISearchController
         150
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(
+        _ tableView: UITableView,
+        commit editingStyle: UITableViewCell.EditingStyle,
+        forRowAt indexPath: IndexPath
+    ) {
         if editingStyle == .delete {
             cities.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
@@ -95,20 +100,35 @@ final class CitiesTableViewController: UITableViewController, UISearchController
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cityWeatherCollectionViewController = CityWeatherCollectionViewController(collectionViewLayout: UICollectionViewLayout())
+        let cityWeatherCollectionViewController = CityWeatherCollectionViewController(
+            collectionViewLayout: UICollectionViewLayout()
+        )
 //        cityWeatherCollectionViewController.city = cities[indexPath.row]
         navigationController?.pushViewController(cityWeatherCollectionViewController, animated: true)
     }
     
     @objc func addCity(_ : UIButton) {
-        let alertController = UIAlertController(title: "Какой город добавить?", message: "", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Which city do you add?", message: "", preferredStyle: .alert)
         alertController.addTextField()
-        alertController.addAction(UIAlertAction(title: "Ок", style: .default, handler: {_ in
+        let errorAlertController = UIAlertController(
+            title: "Such a city does not exist",
+            message: "Try again",
+            preferredStyle: .alert
+        )
+        errorAlertController.addAction(UIAlertAction(title: "Ok", style: .destructive))
+        alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: {_ in
             let text = alertController.textFields?.first?.text
-//            if !text!.isEmpty && !cities.contains(where: { $0.name == text }) {
-//                cities.append(City(name: text!, time: "00:45", weather: weather))
-//                self.tableView.reloadData()
-//            }
+            if !text!.isEmpty && !self.cities.contains(where: { $0.name == text }) {
+                Task {
+                    let city = try await WeatherService.loadCityWeather(city: text!)
+                    if city.name != "Westminster" {
+                        self.cities.append(city)
+                        self.tableView.reloadData()
+                    } else {
+                        self.present(errorAlertController, animated: true)
+                    }
+                }
+            }
         }))
         present(alertController, animated: true)
     }
@@ -126,18 +146,3 @@ extension CitiesTableViewController: UISearchResultsUpdating {
         tableView.reloadData()
     }
 }
-
-extension CitiesTableViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        guard !searchText.isEmpty else {
-//            self.searchText = ""
-//            isFiltered = false
-//            self.tableView.reloadData()
-//            return
-//        }
-//        self.searchText = searchText
-//        isFiltered = true
-//        self.tableView.reloadData()
-    }
-}
-
