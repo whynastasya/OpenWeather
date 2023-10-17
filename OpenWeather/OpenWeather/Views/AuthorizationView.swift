@@ -10,7 +10,6 @@ import UIKit
 final class AuthorizationView: UIView {
     
     private var textColor = UIColor()
-    
     private let loginLabel = UILabel()
     let loginTextField = UITextField()
     private let passwordLabel = UILabel()

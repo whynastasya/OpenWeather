@@ -12,10 +12,10 @@ final class TabBarControllerBuilder {
     static func createTabBarController() -> UITabBarController {
         let hometownViewController = HometownViewController()
         hometownViewController.tabBarItem.image = UIImage(systemName: "cloud.sun")
-        hometownViewController.title = "Погода"
+        hometownViewController.title = "Weather"
         let citiesViewController = UINavigationController(rootViewController: CitiesTableViewController())
         citiesViewController.tabBarItem.image = UIImage(systemName: "house.lodge")
-        citiesViewController.title = "Города"
+        citiesViewController.title = "Cities"
         
         let tabBarController = UITabBarController()
         tabBarController.tabBar.tintColor = .systemBlue

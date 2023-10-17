@@ -9,7 +9,7 @@ import UIKit
 
 class GradientView: UIView {
     
-    private var gradientColors = [UIColor.systemPurple.cgColor, UIColor.systemOrange.cgColor]
+    private var gradientColors = [UIColor.systemPurple, UIColor.systemOrange].map( { $0.cgColor })
     
     convenience init(frame: CGRect, colors: [CGColor]) {
         self.init(frame: frame)
@@ -52,19 +52,19 @@ class GradientView: UIView {
             circleView.widthAnchor.constraint(equalToConstant: dimension),
             circleView.heightAnchor.constraint(equalToConstant: dimension)
         ])
-        let gradientLayer = createGradientLayer(with: dimension)
+        let gradientLayer = GradientView.createGradientLayer(with: dimension, dimensionHeight: dimension, colors: gradientColors)
         circleView.layer.addSublayer(gradientLayer)
         
         return circleView
     }
     
-    private func createGradientLayer(with dimension: CGFloat) -> CAGradientLayer {
+    static func createGradientLayer(with dimensionWidth: CGFloat, dimensionHeight: CGFloat, colors: [CGColor]) -> CAGradientLayer {
         let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = CGRectMake(0, 0, dimension, dimension)
-        gradientLayer.colors = gradientColors
+        gradientLayer.frame = CGRectMake(0, 0, dimensionWidth, dimensionHeight)
+        gradientLayer.colors = colors
         gradientLayer.startPoint = CGPointMake(0.4, 0)
         gradientLayer.endPoint = CGPointMake(0.3, 1)
-        gradientLayer.cornerRadius = dimension / 2
+        gradientLayer.cornerRadius = dimensionWidth / 2
         gradientLayer.masksToBounds = true
         
         return gradientLayer

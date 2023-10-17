@@ -7,31 +7,42 @@
 
 import UIKit
 
-final class CitiesTableViewController: UITableViewController {
-
-    let citiesNames = [
-    "Moscow",
-    "Saint Petersburg",
-    "Novosibirsk",
-    "Yekaterinburg",
-    "Nizhny Novgorod",
-    "Krasnoyarsk",
-    "Chelyabinsk",
-    "Ufa",
-    "Rostov-on-Don",
-    "Krasnodar",
-    "Omsk",
-    "Voronezh",
-    "Perm",
-    "Volgograd"
-]
-    var citiesWeather = [City]()
+final class CitiesTableViewController: UITableViewController, UISearchControllerDelegate {
+    
+    private var cityNames = [
+        "Moscow",
+        "Saint Petersburg",
+        "Novosibirsk",
+        "Yekaterinburg",
+        "Nizhny Novgorod",
+        "Krasnoyarsk",
+        "Chelyabinsk",
+        "Ufa",
+        "Rostov-on-Don",
+        "Krasnodar",
+        "Omsk",
+        "Voronezh",
+        "Perm",
+        "Volgograd"
+    ]
+    private var cities = [City]()
+    private var filteredCities = [City]()
+    private var searchBarIsEmpty: Bool {
+        guard let text = searchController.searchBar.text else { return false }
+        return text.isEmpty
+    }
+    private var isFiltering: Bool {
+        return searchController.isActive && !searchBarIsEmpty
+    }
+    
+    private let searchController = UISearchController(searchResultsController: nil)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        for cityName in citiesNames {
+        for cityName in cityNames {
             Task {
-                let cityWeather = try await WeatherService.loadCityWeather(city: cityName)
-                citiesWeather.append(cityWeather)
+                let city = try await WeatherService.loadCityWeather(city: cityName)
+                cities.append(city)
                 self.tableView.reloadData()
             }
         }
@@ -41,28 +52,44 @@ final class CitiesTableViewController: UITableViewController {
     }
     
     private func setupNavigationBar() {
-        navigationItem.title = "Города"
+        navigationItem.title = "Cities"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addCity(_ :)))
         navigationController?.navigationBar.prefersLargeTitles = true
+        
+        searchController.searchResultsUpdater = self
+        definesPresentationContext = true
+        searchController.searchBar.placeholder = "Search city"
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        citiesWeather.count
+        if isFiltering {
+            return filteredCities.count
+        }
+        return cities.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var city: City
+        if isFiltering {
+            city = filteredCities[indexPath.row]
+        } else {
+            city = cities[indexPath.row]
+        }
         let cell = tableView.dequeueReusableCell(withIdentifier: CityTableViewCell.identifier) as! CityTableViewCell
-        cell.configure(city: citiesWeather[indexPath.row])
+        cell.configure(city: city)
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        50
+        150
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            citiesWeather.remove(at: indexPath.row)
+            cities.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
@@ -87,5 +114,30 @@ final class CitiesTableViewController: UITableViewController {
     }
 }
 
+extension CitiesTableViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        filterContentForSearchText(searchController.searchBar.text!)
+    }
+    
+    private func filterContentForSearchText(_ searchText: String) {
+        filteredCities = cities.filter({ (city: City) -> Bool in
+            return city.name.lowercased().contains(searchText.lowercased())
+        })
+        tableView.reloadData()
+    }
+}
 
+extension CitiesTableViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        guard !searchText.isEmpty else {
+//            self.searchText = ""
+//            isFiltered = false
+//            self.tableView.reloadData()
+//            return
+//        }
+//        self.searchText = searchText
+//        isFiltered = true
+//        self.tableView.reloadData()
+    }
+}
 

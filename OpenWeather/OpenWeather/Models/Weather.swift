@@ -14,6 +14,7 @@ struct Weather {
     var maxTemperature: String = ""
     var minTemperature: String = ""
     var weatherIcon: String = ""
+    var weatherType: String = ""
     
     init(json: [String: Any]) {
         let dt  = json["dt_txt"] as! String
@@ -44,9 +45,10 @@ struct Weather {
             self.minTemperature = String(Int(truncating: minTemp))
         }
         
-        if let weatherIcon = json["weather"] as? NSArray {
-            if let weatherIcon = weatherIcon[0] as? [String: Any] {
-                self.weatherIcon = weatherIcon["icon"] as! String
+        if let weatherJSON = json["weather"] as? NSArray {
+            if let weather = weatherJSON[0] as? [String: Any] {
+                self.weatherIcon = weather["icon"] as! String
+                self.weatherType = weather["description"] as! String
             }
         }
     }

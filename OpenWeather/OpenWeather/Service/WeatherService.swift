@@ -55,16 +55,21 @@ class WeatherService {
             URLQueryItem(name: "appid", value: "c0cdd0113ca4184edd72a7bbe8040913")
         ]
         
-        let data = try await session.data(from: urlComponents.url!)
-        let json = try? JSONSerialization.jsonObject(
-            with: data.0,
-            options: JSONSerialization.ReadingOptions.mutableContainers
-        )
-        let array = json as! [String : Any]
-        let weathersJSON = array["list"] as! NSArray
-        let weather = weathersJSON.map { Weather(json: $0 as! [String: Any]) }
-        let cityWeather = City(json: array, name: city, weather: weather)
-        return cityWeather
+        do {
+            let data = try await session.data(from: urlComponents.url!)
+            let json = try? JSONSerialization.jsonObject(
+                with: data.0,
+                options: JSONSerialization.ReadingOptions.mutableContainers
+            )
+            let array = json as! [String : Any]
+            let weathersJSON = array["list"] as! NSArray
+            let weather = weathersJSON.map { Weather(json: $0 as! [String: Any]) }
+            let cityWeather = City(json: array, name: city, weather: weather)
+            return cityWeather
+        } catch {
+            let cityWeather = try await loadCityWeather(city: "London")
+            return cityWeather
+        }
     }
 }
 
