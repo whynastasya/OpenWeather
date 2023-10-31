@@ -53,7 +53,6 @@ final class CityTableViewCell: UITableViewCell {
             backView.heightAnchor.constraint(equalToConstant: dimensionHeight),
             backView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             backView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
-            
         ])
         let gradientLayer = GradientView.createGradientLayer(with: dimensionWidth, dimensionHeight: dimensionHeight, colors: [UIColor.systemCyan.withAlphaComponent(0.4), .systemBlue.withAlphaComponent(1)].map( { $0.cgColor}))
         gradientLayer.cornerRadius = dimensionWidth / 10
@@ -64,11 +63,11 @@ final class CityTableViewCell: UITableViewCell {
     private func setupCityNameLabel() {
         backView.addSubview(cityNameLabel)
         cityNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        cityNameLabel.font = UIFont.systemFont(ofSize: 23, weight: .bold)
+        cityNameLabel.font = UIFont.systemFont(ofSize: 28, weight: .light)
         cityNameLabel.textColor = .white
         NSLayoutConstraint.activate([
             cityNameLabel.topAnchor.constraint(equalTo: backView.topAnchor, constant: 15),
-            cityNameLabel.leadingAnchor.constraint(equalTo: backView.leadingAnchor, constant: 20)
+            cityNameLabel.leadingAnchor.constraint(equalTo: backView.leadingAnchor, constant: 25)
         ])
     }
     
@@ -76,7 +75,7 @@ final class CityTableViewCell: UITableViewCell {
         backView.addSubview(temperatureNowLabel)
         temperatureNowLabel.translatesAutoresizingMaskIntoConstraints = false
         temperatureNowLabel.textColor = .white
-        temperatureNowLabel.font = UIFont.systemFont(ofSize: 45, weight: .medium)
+        temperatureNowLabel.font = UIFont.systemFont(ofSize: 55, weight: .light)
         NSLayoutConstraint.activate([
             temperatureNowLabel.topAnchor.constraint(equalTo: cityNameLabel.topAnchor),
             temperatureNowLabel.trailingAnchor.constraint(equalTo: backView.trailingAnchor, constant: -20)
@@ -86,7 +85,7 @@ final class CityTableViewCell: UITableViewCell {
     private func setupCityTimeLabel() {
         backView.addSubview(cityTimeLabel)
         cityTimeLabel.translatesAutoresizingMaskIntoConstraints = false
-        cityTimeLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        cityTimeLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         cityTimeLabel.textColor = .white
         NSLayoutConstraint.activate([
             cityTimeLabel.leadingAnchor.constraint(equalTo: cityNameLabel.leadingAnchor),
@@ -98,7 +97,7 @@ final class CityTableViewCell: UITableViewCell {
         backView.addSubview(temperatureRangeLabel)
         temperatureRangeLabel.textColor = .white
         temperatureRangeLabel.text = "text text text"
-        temperatureRangeLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        temperatureRangeLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         temperatureRangeLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             temperatureRangeLabel.trailingAnchor.constraint(equalTo: temperatureNowLabel.trailingAnchor),
@@ -110,7 +109,7 @@ final class CityTableViewCell: UITableViewCell {
         backView.addSubview(weatherTypeLabel)
         weatherTypeLabel.textColor = .white
         weatherTypeLabel.text = "text text text"
-        weatherTypeLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        weatherTypeLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         weatherTypeLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             weatherTypeLabel.leadingAnchor.constraint(equalTo: cityNameLabel.leadingAnchor),
@@ -120,10 +119,10 @@ final class CityTableViewCell: UITableViewCell {
     
     func configure(city: City) {
         cityNameLabel.text = city.name
-        temperatureNowLabel.text = city.weather[0].maxTemperature + "°"
+        temperatureNowLabel.text = String(Int(city.weathers[0].maxTemperature)) + "°"
         cityTimeLabel.text = city.time
-        weatherTypeLabel.text = city.weather[0].weatherType
-        temperatureRangeLabel.text = "max: " + city.weather[0].maxTemperature + "°, min: "
-            + city.weather[0].minTemperature + "°"
+        weatherTypeLabel.text = city.weathers[0].weatherType
+        temperatureRangeLabel.text = "max: " + String(Int(city.weathers[0].maxTemperature)) + "°, min: "
+            + String(Int(city.weathers[0].minTemperature)) + "°"
     }
 }

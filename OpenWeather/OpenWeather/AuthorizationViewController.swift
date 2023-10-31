@@ -21,6 +21,7 @@ final class AuthorizationViewController: UIViewController {
         super.viewDidLoad()
         setupGradientView()
         setupScrollView()
+        WeatherData.shared.getWeathersData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,8 +52,8 @@ final class AuthorizationViewController: UIViewController {
     private func setupAppNameLabel() {
         scrollView.addSubview(appNameLabel)
         appNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        appNameLabel.text = "🌦️OpenWeather"
-        appNameLabel.font = UIFont.systemFont(ofSize: 30, weight: .heavy)
+        appNameLabel.text = "OpenWeather"
+        appNameLabel.font = UIFont.systemFont(ofSize: 30, weight: .light)
         appNameLabel.textColor = .black
         appNameLabel.textAlignment = .center
         setupAppNameLabelConstraints()
@@ -134,8 +135,10 @@ final class AuthorizationViewController: UIViewController {
 //            let alertController = UIAlertController(title: "", message: "Неверно введены логин и/или пароль", preferredStyle: .alert)
 //            alertController.addAction(UIAlertAction(title: "Ок", style: .destructive))
 //        }
-        let tabBarController = TabBarControllerBuilder.createTabBarController()
-        tabBarController.modalPresentationStyle = .fullScreen
-        present(tabBarController, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            let tabBarController = TabBarControllerBuilder.createTabBarController()
+            tabBarController.modalPresentationStyle = .fullScreen
+            self.present(tabBarController, animated: true)
+        }
     }
 }

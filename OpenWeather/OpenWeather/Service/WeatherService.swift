@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 final class WeatherService {
     static let session = URLSession(configuration: URLSessionConfiguration.default)
@@ -61,8 +62,6 @@ final class WeatherService {
                 options: JSONSerialization.ReadingOptions.mutableContainers
             )
             let array = json as! [String : Any]
-//            print(json)
-            print(array)
             if let error = array["message"] as? String {
                 let cityWeather = try await loadCityWeather(city: "Westminster")
                 return cityWeather
@@ -77,6 +76,17 @@ final class WeatherService {
             return cityWeather
         }
     }
+    
+//    static func saveWeatherData(_ city: City) {
+//        do {
+//            let realm = try Realm()
+//            realm.beginWrite()
+//            realm.add(city)
+//            try realm.commitWrite()
+//        } catch  {
+//            print(error)
+//        }
+//    }
 }
 
 

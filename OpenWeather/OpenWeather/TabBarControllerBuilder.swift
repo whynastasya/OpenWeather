@@ -10,9 +10,9 @@ import UIKit
 
 final class TabBarControllerBuilder {
     static func createTabBarController() -> UITabBarController {
-        let hometownViewController = CityDetailCollectionViewController(collectionViewLayout: UICollectionViewLayout())
+        let hometownViewController = CityWeatherDetailCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
         hometownViewController.tabBarItem.image = UIImage(systemName: "cloud.sun")
-        hometownViewController.title = "Weather"
+        hometownViewController.title = "Hometown"
         let citiesViewController = UINavigationController(rootViewController: CitiesTableViewController())
         citiesViewController.tabBarItem.image = UIImage(systemName: "house.lodge")
         citiesViewController.title = "Cities"

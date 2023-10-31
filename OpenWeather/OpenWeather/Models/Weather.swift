@@ -6,13 +6,14 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct Weather {
+class Weather {
     var date: String = ""
     var time: String = ""
     var weekday: String = ""
-    var maxTemperature: String = ""
-    var minTemperature: String = ""
+    var maxTemperature: Double = 0.0
+    var minTemperature: Double = 0.0
     var weatherIcon: String = ""
     var weatherType: String = ""
     
@@ -28,7 +29,7 @@ struct Weather {
         self.date = date
         
         let timeFormatter = DateFormatter()
-        timeFormatter.timeStyle = .short
+        timeFormatter.dateFormat = "HH"
         let time = timeFormatter.string(from: dateTime!)
         self.time = time
         
@@ -39,10 +40,10 @@ struct Weather {
         
         if let main = json["main"] as? [String: Any] {
             let maxTemp = main["temp_max"] as! NSNumber
-            self.maxTemperature = String(Int(truncating: maxTemp))
+            self.maxTemperature = Double(Int(truncating: maxTemp))
             
             let minTemp = main["temp_min"] as! NSNumber
-            self.minTemperature = String(Int(truncating: minTemp))
+            self.minTemperature = Double(Int(truncating: minTemp))
         }
         
         if let weatherJSON = json["weather"] as? NSArray {
@@ -51,5 +52,8 @@ struct Weather {
                 self.weatherType = weather["description"] as! String
             }
         }
+    }
+    
+    init() {
     }
 }

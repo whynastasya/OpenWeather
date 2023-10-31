@@ -14,7 +14,6 @@ final class CityWeatherCollectionViewCell: UICollectionViewCell {
     private let weatherImageView = UIImageView()
     private let dateLabel = UILabel()
     private let temperatureLabel = UILabel()
-    private
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -40,24 +39,24 @@ final class CityWeatherCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    private func createWeatherImage(with weatherType: WeatherType) {
-        switch weatherType {
-            case .cloudy:
-                let configuration = UIImage.SymbolConfiguration(paletteColors: [.lightGray.withAlphaComponent(0.5), .systemYellow])
-                weatherImageView.image = UIImage(systemName: "cloud.sun.fill")?.withConfiguration(configuration)
-            case .murky:
-                let configuration = UIImage.SymbolConfiguration(hierarchicalColor: .lightGray.withAlphaComponent(0.5))
-                weatherImageView.image = UIImage(systemName: "smoke.fill")?.withConfiguration(configuration)
-            case .rain:
-                let configuration = UIImage.SymbolConfiguration(paletteColors: [.lightGray.withAlphaComponent(0.5), .systemBlue.withAlphaComponent(0.5)])
-                weatherImageView.image = UIImage(systemName: "cloud.rain.fill")?.withConfiguration(configuration)
-            case .sunny:
-                weatherImageView.image = UIImage(systemName: "sun.max.fill")?.withTintColor(.systemYellow, renderingMode: .alwaysOriginal)
-            case .thunderstorm:
-                let configuration = UIImage.SymbolConfiguration(paletteColors: [.lightGray.withAlphaComponent(0.5), .systemBlue.withAlphaComponent(0.5), .systemYellow])
-                weatherImageView.image = UIImage(systemName: "cloud.bolt.rain.fill")?.withConfiguration(configuration)
-        }
-    }
+//    private func createWeatherImage(with weatherType: WeatherType) {
+//        switch weatherType {
+//            case .cloudy:
+//                let configuration = UIImage.SymbolConfiguration(paletteColors: [.lightGray.withAlphaComponent(0.5), .systemYellow])
+//                weatherImageView.image = UIImage(systemName: "cloud.sun.fill")?.withConfiguration(configuration)
+//            case .murky:
+//                let configuration = UIImage.SymbolConfiguration(hierarchicalColor: .lightGray.withAlphaComponent(0.5))
+//                weatherImageView.image = UIImage(systemName: "smoke.fill")?.withConfiguration(configuration)
+//            case .rain:
+//                let configuration = UIImage.SymbolConfiguration(paletteColors: [.lightGray.withAlphaComponent(0.5), .systemBlue.withAlphaComponent(0.5)])
+//                weatherImageView.image = UIImage(systemName: "cloud.rain.fill")?.withConfiguration(configuration)
+//            case .sunny:
+//                weatherImageView.image = UIImage(systemName: "sun.max.fill")?.withTintColor(.systemYellow, renderingMode: .alwaysOriginal)
+//            case .thunderstorm:
+//                let configuration = UIImage.SymbolConfiguration(paletteColors: [.lightGray.withAlphaComponent(0.5), .systemBlue.withAlphaComponent(0.5), .systemYellow])
+//                weatherImageView.image = UIImage(systemName: "cloud.bolt.rain.fill")?.withConfiguration(configuration)
+//        }
+//    }
     
     private func setupDateLabel() {
         contentView.addSubview(dateLabel)
@@ -81,7 +80,7 @@ final class CityWeatherCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    private func defineBackgfoundColor(with temperature: Int) {
+    private func defineBackgroundColor(with temperature: Int) {
         switch temperature {
             case 0...15:
                 backgroundColor = .systemGreen.withAlphaComponent(0.1)
@@ -98,7 +97,7 @@ final class CityWeatherCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(weather: Weather) {
-//        createWeatherImage(with: weather.weatherType)
+//        createWeatherImage(with: weathers.weatherType)
 //        dateLabel.text = weather.date
 //        temperatureLabel.text = weather.temperature + "°"
 //        defineBackgfoundColor(with: Int(weather.temperature) ?? 0)

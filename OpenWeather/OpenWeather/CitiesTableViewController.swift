@@ -9,23 +9,7 @@ import UIKit
 
 final class CitiesTableViewController: UITableViewController, UISearchControllerDelegate {
     
-    private var cityNames = [
-        "Moscow",
-        "Saint Petersburg",
-        "Novosibirsk",
-        "Yekaterinburg",
-        "Nizhny Novgorod",
-        "Krasnoyarsk",
-        "Chelyabinsk",
-        "Ufa",
-        "Rostov-on-Don",
-        "Krasnodar",
-        "Omsk",
-        "Voronezh",
-        "Perm",
-        "Volgograd"
-    ]
-    private var cities = [City]()
+    private var cities = WeatherData.shared.cities
     private var filteredCities = [City]()
     private var searchBarIsEmpty: Bool {
         guard let text = searchController.searchBar.text else { return false }
@@ -39,14 +23,6 @@ final class CitiesTableViewController: UITableViewController, UISearchController
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        for cityName in cityNames {
-            Task {
-                let city = try await WeatherService.loadCityWeather(city: cityName)
-                cities.append(city)
-                self.tableView.reloadData()
-                
-            }
-        }
         view.backgroundColor = .white
         tableView.register(CityTableViewCell.self, forCellReuseIdentifier: CityTableViewCell.identifier)
         setupNavigationBar()
@@ -100,10 +76,10 @@ final class CitiesTableViewController: UITableViewController, UISearchController
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cityWeatherCollectionViewController = CityWeatherCollectionViewController(
+        let cityWeatherCollectionViewController = CityWeatherDetailCollectionViewController(
             collectionViewLayout: UICollectionViewLayout()
         )
-//        cityWeatherCollectionViewController.city = cities[indexPath.row]
+        cityWeatherCollectionViewController.city = cities[indexPath.row]
         navigationController?.pushViewController(cityWeatherCollectionViewController, animated: true)
     }
     

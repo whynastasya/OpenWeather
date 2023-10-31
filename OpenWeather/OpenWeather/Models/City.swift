@@ -6,15 +6,16 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct City {
+class City {
     var name: String = ""
     var time: String = ""
-    var weather: [Weather] = []
+    var weathers: [Weather] = [Weather]()
     
     init(json: [String: Any], name: String, weather: [Weather]) {
         self.name = name
-        self.weather = weather
+        self.weathers = weather
         
         if let cityJSON = json["city"] as? [String: Any] {
             if let timezoneJSON = cityJSON["timezone"] as? Int {
@@ -25,5 +26,11 @@ struct City {
                 self.time = time
             }
         }
+    }
+    
+    init(name: String, time: String) {
+        self.name = name
+        self.time = time
+        self.weathers = [Weather](repeating: Weather(), count: 10)
     }
 }

@@ -19,7 +19,7 @@ final class GradientView: UIView {
     
     private func setupView() {
         for index in  0..<3 {
-            let circleViewDimension = CGFloat(100 * (index + 1))
+            let circleViewDimension = CGFloat(110 * (index + 1))
             let circleView = createCircleGradientView(dimension: circleViewDimension)
             addSubview(circleView)
             switch index {

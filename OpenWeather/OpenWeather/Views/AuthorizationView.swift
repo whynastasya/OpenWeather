@@ -24,7 +24,7 @@ final class AuthorizationView: UIView {
     }
 
     private func setupView() {
-        backgroundColor = .white.withAlphaComponent(0.3)
+        backgroundColor = .white.withAlphaComponent(0.4)
         layer.cornerRadius = 20
         
         setupLoginLabel()
@@ -39,7 +39,7 @@ final class AuthorizationView: UIView {
         addSubview(loginLabel)
         loginLabel.translatesAutoresizingMaskIntoConstraints = false
         loginLabel.text = "Your email"
-        loginLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        loginLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         loginLabel.textColor = textColor.withAlphaComponent(0.6)
         setupLoginLabelConstraints()
     }
@@ -66,7 +66,7 @@ final class AuthorizationView: UIView {
         addSubview(passwordLabel)
         passwordLabel.translatesAutoresizingMaskIntoConstraints = false
         passwordLabel.text = "Your password"
-        passwordLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        passwordLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         passwordLabel.textColor = textColor.withAlphaComponent(0.6)
         setupPasswordLabelConstraints()
     }
