@@ -61,6 +61,9 @@ extension WeatherForecastForSeveralDaysCollectionViewCell: UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WeatherForecastForDayCollectionViewCell.identifier, for: indexPath) as! WeatherForecastForDayCollectionViewCell
         cell.determineMaxAndMinTemperaturesForAllDay(with: weathers)
+        if indexPath.row == 0 {
+            weathers[0][0].weekday = "Today"
+        }
         cell.configure(with: weathers[indexPath.row])
         return cell
     }

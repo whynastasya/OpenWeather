@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 class WeatherData {
     static let shared = WeatherData()
@@ -30,7 +31,7 @@ class WeatherData {
     ]
     var hometownName = "Moscow"
     var cities = [City]()
-    var hometown = City(name: "Error", time: "Error")
+    var hometown = City()
     
     func getWeathersData() {
         for cityName in cityNames {

@@ -11,8 +11,8 @@ final class CityWeatherDetailCollectionViewController: UICollectionViewControlle
     
     private let gradientView = GradientView(frame: .zero,
                                             colors: [UIColor.white.cgColor,
-                                                     UIColor.cyan.withAlphaComponent(0.5).cgColor,
-                                                     UIColor.systemBlue.withAlphaComponent(0.6).cgColor])
+                                                     UIColor.systemBlue.withAlphaComponent(0.5).cgColor,
+                                                     UIColor.systemPurple.withAlphaComponent(0.7).cgColor])
     var city = WeatherData.shared.hometown
     private var filteredWeathers = [[Weather]]()
     
@@ -24,6 +24,21 @@ final class CityWeatherDetailCollectionViewController: UICollectionViewControlle
     
     private func setupNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(makeHometown))
+        navigationController?.navigationBar.tintColor = .systemPurple
+    }
+    
+    @objc func makeHometown() {
+        let alertController = UIAlertController(title: "Make this city your hometown?", message: "", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: {_ in
+            WeatherData.shared.hometown = self.city
+            WeatherData.shared.hometownName = self.city.name
+            let tabBarController = TabBarControllerBuilder.createTabBarController()
+            tabBarController.modalPresentationStyle = .fullScreen
+            self.present(tabBarController, animated: true)
+        }))
+        alertController.addAction(UIAlertAction(title: "No", style: .default))
+        present(alertController, animated: true)
     }
     
     private func setupCollectionView() {

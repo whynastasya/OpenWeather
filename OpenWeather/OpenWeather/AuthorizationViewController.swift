@@ -13,8 +13,8 @@ final class AuthorizationViewController: UIViewController {
     private let appNameLabel = UILabel()
     private let gradientView = GradientView(frame: .zero,
                                             colors: [UIColor.white.cgColor,
-                                                     UIColor.cyan.withAlphaComponent(0.5).cgColor,
-                                                     UIColor.systemBlue.withAlphaComponent(0.6).cgColor])
+                                                     UIColor.systemBlue.withAlphaComponent(0.5).cgColor,
+                                                     UIColor.systemPurple.withAlphaComponent(0.7).cgColor])
     private let authorizationView = AuthorizationView(frame: .zero, textColor: .black)
     
     override func viewDidLoad() {

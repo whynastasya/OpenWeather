@@ -18,7 +18,7 @@ final class TabBarControllerBuilder {
         citiesViewController.title = "Cities"
         
         let tabBarController = UITabBarController()
-        tabBarController.tabBar.tintColor = .systemBlue
+        tabBarController.tabBar.tintColor = .systemPurple
         tabBarController.setViewControllers([hometownViewController, citiesViewController], animated: true)
         
         return tabBarController

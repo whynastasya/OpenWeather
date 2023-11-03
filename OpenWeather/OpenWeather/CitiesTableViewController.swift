@@ -32,6 +32,7 @@ final class CitiesTableViewController: UITableViewController, UISearchController
         navigationItem.title = "Cities"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addCity(_ :)))
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.tintColor = .systemPurple
         
         searchController.searchResultsUpdater = self
         definesPresentationContext = true
@@ -64,6 +65,10 @@ final class CitiesTableViewController: UITableViewController, UISearchController
         150
     }
     
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        1
+    }
+    
     override func tableView(
         _ tableView: UITableView,
         commit editingStyle: UITableViewCell.EditingStyle,
@@ -71,6 +76,8 @@ final class CitiesTableViewController: UITableViewController, UISearchController
     ) {
         if editingStyle == .delete {
             cities.remove(at: indexPath.row)
+            WeatherData.shared.cities.remove(at: indexPath.row)
+            WeatherData.shared.cityNames.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
@@ -79,7 +86,13 @@ final class CitiesTableViewController: UITableViewController, UISearchController
         let cityWeatherCollectionViewController = CityWeatherDetailCollectionViewController(
             collectionViewLayout: UICollectionViewLayout()
         )
-        cityWeatherCollectionViewController.city = cities[indexPath.row]
+        var city = City()
+        if isFiltering {
+            city = filteredCities[indexPath.row]
+        } else {
+            city = cities[indexPath.row]
+        }
+        cityWeatherCollectionViewController.city = city
         navigationController?.pushViewController(cityWeatherCollectionViewController, animated: true)
     }
     
@@ -98,8 +111,12 @@ final class CitiesTableViewController: UITableViewController, UISearchController
                 Task {
                     let city = try await WeatherService.loadCityWeather(city: text!)
                     if city.name != "Westminster" {
-                        self.cities.append(city)
-                        self.tableView.reloadData()
+                        self.tableView.beginUpdates()
+                        self.cities.insert(city, at: 0)
+                        WeatherData.shared.cities.insert(city, at: 0)
+                        WeatherData.shared.cityNames.insert(city.name, at: 0)
+                        self.tableView.insertRows(at: [.init(row: 0, section: 0)], with: .fade)
+                        self.tableView.endUpdates()
                     } else {
                         self.present(errorAlertController, animated: true)
                     }

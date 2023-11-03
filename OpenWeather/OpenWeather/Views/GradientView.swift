@@ -44,7 +44,6 @@ final class GradientView: UIView {
     
     private func createCircleGradientView(dimension: CGFloat) -> UIView {
         let circleView = UIView()
-        circleView.backgroundColor = .purple
         circleView.layer.cornerRadius = dimension / 2
         circleView.clipsToBounds = true
         circleView.translatesAutoresizingMaskIntoConstraints = false

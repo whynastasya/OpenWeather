@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE0A41BB2AF3A8170070627A /* WeatherType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0A41BA2AF3A8170070627A /* WeatherType.swift */; };
 		EE166D4F2AE82734001D5A17 /* WeatherForecastForOneHourCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE166D4E2AE82734001D5A17 /* WeatherForecastForOneHourCollectionViewCell.swift */; };
 		EE166D532AE8317F001D5A17 /* WeatherForecastForDayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE166D522AE8317F001D5A17 /* WeatherForecastForDayCollectionViewCell.swift */; };
 		EE166D552AEAD8A0001D5A17 /* HourlyWeatherForecastCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE166D542AEAD8A0001D5A17 /* HourlyWeatherForecastCollectionViewCell.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EE0A41BA2AF3A8170070627A /* WeatherType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherType.swift; sourceTree = "<group>"; };
 		EE166D4E2AE82734001D5A17 /* WeatherForecastForOneHourCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WeatherForecastForOneHourCollectionViewCell.swift; path = OpenWeather/WeatherForecastForOneHourCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		EE166D522AE8317F001D5A17 /* WeatherForecastForDayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherForecastForDayCollectionViewCell.swift; sourceTree = "<group>"; };
 		EE166D542AEAD8A0001D5A17 /* HourlyWeatherForecastCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyWeatherForecastCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 			children = (
 				EE9B12882A4DB114002235B3 /* City.swift */,
 				EE9B128A2A4DB114002235B3 /* Weather.swift */,
+				EE0A41BA2AF3A8170070627A /* WeatherType.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -241,6 +244,7 @@
 				EE166D572AEFD127001D5A17 /* WeatherForecastForSeveralDaysCollectionViewCell.swift in Sources */,
 				EE9B128D2A4DB114002235B3 /* Weather.swift in Sources */,
 				EE9B12952A4DB12C002235B3 /* CityWeatherDetailCollectionViewController.swift in Sources */,
+				EE0A41BB2AF3A8170070627A /* WeatherType.swift in Sources */,
 				EE166D592AEFD40A001D5A17 /* HeaderCollectionViewCell.swift in Sources */,
 				EE9B128B2A4DB114002235B3 /* City.swift in Sources */,
 				EE166D4F2AE82734001D5A17 /* WeatherForecastForOneHourCollectionViewCell.swift in Sources */,

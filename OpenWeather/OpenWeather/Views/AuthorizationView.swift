@@ -106,7 +106,7 @@ final class AuthorizationView: UIView {
     private func setupLoginButton() {
         addSubview(loginButton)
         loginButton.translatesAutoresizingMaskIntoConstraints = false
-        loginButton.backgroundColor = .systemBlue.withAlphaComponent(0.9)
+        loginButton.backgroundColor = .systemPurple.withAlphaComponent(0.9)
         loginButton.layer.cornerRadius = 10
         loginButton.clipsToBounds = true
         loginButton.setAttributedTitle(

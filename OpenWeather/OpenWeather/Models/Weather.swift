@@ -8,18 +8,20 @@
 import Foundation
 import RealmSwift
 
-class Weather {
-    var date: String = ""
-    var time: String = ""
-    var weekday: String = ""
-    var maxTemperature: Double = 0.0
-    var minTemperature: Double = 0.0
-    var weatherIcon: String = ""
-    var weatherType: String = ""
+class Weather: Object {
+    @objc dynamic var date: String = ""
+    @objc dynamic var time: String = ""
+    @objc dynamic var weekday: String = ""
+    @objc dynamic var maxTemperature: Double = 0.0
+    @objc dynamic var minTemperature: Double = 0.0
+    @objc dynamic var weatherIcon: String = ""
+    var weatherType: WeatherType = .null
+    @objc dynamic var weatherDescription: String = ""
     
-    init(json: [String: Any]) {
-        let dt  = json["dt_txt"] as! String
+    convenience init(json: [String: Any]) {
+        self.init()
         
+        let dt  = json["dt_txt"] as! String
         let dateTimeFormatter = DateFormatter()
         dateTimeFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let dateTime = dateTimeFormatter.date(from: dt)
@@ -49,11 +51,10 @@ class Weather {
         if let weatherJSON = json["weather"] as? NSArray {
             if let weather = weatherJSON[0] as? [String: Any] {
                 self.weatherIcon = weather["icon"] as! String
-                self.weatherType = weather["description"] as! String
+                self.weatherDescription = weather["main"] as! String
+                let weatherID = weather["id"] as! Int
+                self.weatherType = WeatherType(rawValue: weatherID)
             }
         }
-    }
-    
-    init() {
     }
 }

@@ -54,7 +54,7 @@ final class CityTableViewCell: UITableViewCell {
             backView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             backView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
-        let gradientLayer = GradientView.createGradientLayer(with: dimensionWidth, dimensionHeight: dimensionHeight, colors: [UIColor.systemCyan.withAlphaComponent(0.4), .systemBlue.withAlphaComponent(1)].map( { $0.cgColor}))
+        let gradientLayer = GradientView.createGradientLayer(with: dimensionWidth, dimensionHeight: dimensionHeight, colors: [UIColor.systemBlue.withAlphaComponent(0.3), .systemPurple.withAlphaComponent(0.6)].map( { $0.cgColor}))
         gradientLayer.cornerRadius = dimensionWidth / 10
         backView.layer.addSublayer(gradientLayer)
         
@@ -121,7 +121,7 @@ final class CityTableViewCell: UITableViewCell {
         cityNameLabel.text = city.name
         temperatureNowLabel.text = String(Int(city.weathers[0].maxTemperature)) + "°"
         cityTimeLabel.text = city.time
-        weatherTypeLabel.text = city.weathers[0].weatherType
+        weatherTypeLabel.text = city.weathers[0].weatherDescription
         temperatureRangeLabel.text = "max: " + String(Int(city.weathers[0].maxTemperature)) + "°, min: "
             + String(Int(city.weathers[0].minTemperature)) + "°"
     }

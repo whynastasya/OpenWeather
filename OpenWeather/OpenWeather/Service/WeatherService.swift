@@ -12,7 +12,7 @@ final class WeatherService {
     static let session = URLSession(configuration: URLSessionConfiguration.default)
     
     static func loadCityWeather(city: String, resultHandler: @escaping (City) -> Void) {
-        var cityWeather = City(json: [:], name: "", weather: [])
+        var cityWeather = City(json: [:], name: "", weathers: [])
         var urlComponents = {
             var url = URLComponents()
             url.scheme = "http"
@@ -34,7 +34,7 @@ final class WeatherService {
             let array = json as! [String : Any]
             let weathersJSON = array["list"] as! NSArray
             let weather = weathersJSON.map { Weather(json: $0 as! [String: Any]) }
-            cityWeather = City(json: array, name: city, weather: weather)
+            cityWeather = City(json: array, name: city, weathers: weather)
             resultHandler(cityWeather)
         }
         task.resume()
@@ -68,8 +68,11 @@ final class WeatherService {
             } else {
                 let weathersJSON = array["list"] as! NSArray
                 let weather = weathersJSON.map { Weather(json: $0 as! [String: Any]) }
-                let cityWeather = City(json: array, name: city, weather: weather)
-                return cityWeather
+                let city = City(json: array, name: city, weathers: weather)
+//                DispatchQueue.main.async {
+//                    saveWeatherData(city)
+//                }
+                return city
             }
         } catch {
             let cityWeather = try await loadCityWeather(city: "Westminster")
@@ -77,16 +80,17 @@ final class WeatherService {
         }
     }
     
-//    static func saveWeatherData(_ city: City) {
-//        do {
-//            let realm = try Realm()
-//            realm.beginWrite()
-//            realm.add(city)
-//            try realm.commitWrite()
-//        } catch  {
-//            print(error)
-//        }
-//    }
+    static func saveWeatherData(_ city: City) {
+        do {
+            let realm = try Realm()
+            realm.beginWrite()
+            realm.add(city)
+            realm.add(city.weathers)
+            try realm.commitWrite()
+        } catch  {
+            print(error)
+        }
+    }
 }
 
 

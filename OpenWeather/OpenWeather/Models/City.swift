@@ -8,14 +8,15 @@
 import Foundation
 import RealmSwift
 
-class City {
-    var name: String = ""
-    var time: String = ""
-    var weathers: [Weather] = [Weather]()
+class City: Object {
+    @objc dynamic var name: String = ""
+    @objc dynamic var time: String = ""
+    var weathers: [Weather] = []
     
-    init(json: [String: Any], name: String, weather: [Weather]) {
+    convenience init(json: [String: Any], name: String, weathers: [Weather]) {
+        self.init()
         self.name = name
-        self.weathers = weather
+        self.weathers = weathers
         
         if let cityJSON = json["city"] as? [String: Any] {
             if let timezoneJSON = cityJSON["timezone"] as? Int {
@@ -26,11 +27,5 @@ class City {
                 self.time = time
             }
         }
-    }
-    
-    init(name: String, time: String) {
-        self.name = name
-        self.time = time
-        self.weathers = [Weather](repeating: Weather(), count: 10)
     }
 }

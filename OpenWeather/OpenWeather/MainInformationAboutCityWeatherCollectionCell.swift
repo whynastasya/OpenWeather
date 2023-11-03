@@ -79,7 +79,7 @@ final class MainInformationAboutCityWeatherCollectionCell: UICollectionViewCell 
     func configure(city: City) {
         cityNameLabel.text = city.name
         temperatureNowLabel.text = String(Int(city.weathers[0].maxTemperature)) + "°"
-        weatherTypeLabel.text = city.weathers[0].weatherType
+        weatherTypeLabel.text = city.weathers[0].weatherDescription
         temperatureRangeLabel.text = "max: " + String(Int(city.weathers[0].maxTemperature)) + "°, min: "
             + String(Int(city.weathers[0].minTemperature)) + "°"
     }

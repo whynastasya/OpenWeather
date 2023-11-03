@@ -65,7 +65,7 @@ final class WeatherForecastForOneHourCollectionViewCell: UICollectionViewCell {
     
     func configure(nearestWeather: Weather) {
         hourLabel.text = nearestWeather.time
-//        weatherIconImageView.image = UIImage
+        weatherIconImageView.image = WeatherForecastForDayCollectionViewCell.createWeatherIcon(weatherType: nearestWeather.weatherType)
         temperatureLabel.text = String(Int(nearestWeather.maxTemperature)) + "°"
     }
 }
