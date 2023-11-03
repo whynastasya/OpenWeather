@@ -12,6 +12,14 @@
 		EE0A41BF2AF548240070627A /* GradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0A41BE2AF548240070627A /* GradientLayer.swift */; };
 		EE0A41C12AF561590070627A /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0A41C02AF561590070627A /* SignInView.swift */; };
 		EE0A41C52AF56C3A0070627A /* WeatherIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0A41C42AF56C3A0070627A /* WeatherIcon.swift */; };
+		EE0A41C72AF574F90070627A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EE0A41C62AF574F90070627A /* GoogleService-Info.plist */; };
+		EE0A41CA2AF5931E0070627A /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = EE0A41C92AF5931E0070627A /* FirebaseAnalytics */; };
+		EE0A41CC2AF5931E0070627A /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = EE0A41CB2AF5931E0070627A /* FirebaseAnalyticsOnDeviceConversion */; };
+		EE0A41CE2AF5931E0070627A /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EE0A41CD2AF5931E0070627A /* FirebaseAnalyticsSwift */; };
+		EE0A41D02AF5931E0070627A /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = EE0A41CF2AF5931E0070627A /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		EE0A41D22AF5931E0070627A /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = EE0A41D12AF5931E0070627A /* FirebaseAppCheck */; };
+		EE0A41D52AF59D5C0070627A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = EE0A41D42AF59D5C0070627A /* FirebaseAuth */; };
+		EE0A41D72AF59D810070627A /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = EE0A41D62AF59D810070627A /* FirebaseFirestore */; };
 		EE166D4F2AE82734001D5A17 /* WeatherForecastForOneHourCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE166D4E2AE82734001D5A17 /* WeatherForecastForOneHourCollectionViewCell.swift */; };
 		EE166D532AE8317F001D5A17 /* WeatherForecastForDayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE166D522AE8317F001D5A17 /* WeatherForecastForDayCollectionViewCell.swift */; };
 		EE166D552AEAD8A0001D5A17 /* HourlyWeatherForecastCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE166D542AEAD8A0001D5A17 /* HourlyWeatherForecastCollectionViewCell.swift */; };
@@ -45,6 +53,7 @@
 		EE0A41BE2AF548240070627A /* GradientLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientLayer.swift; sourceTree = "<group>"; };
 		EE0A41C02AF561590070627A /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		EE0A41C42AF56C3A0070627A /* WeatherIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherIcon.swift; sourceTree = "<group>"; };
+		EE0A41C62AF574F90070627A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EE166D4E2AE82734001D5A17 /* WeatherForecastForOneHourCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WeatherForecastForOneHourCollectionViewCell.swift; path = OpenWeather/WeatherForecastForOneHourCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		EE166D522AE8317F001D5A17 /* WeatherForecastForDayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherForecastForDayCollectionViewCell.swift; sourceTree = "<group>"; };
 		EE166D542AEAD8A0001D5A17 /* HourlyWeatherForecastCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyWeatherForecastCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -78,13 +87,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE34F8202AE1A1C200732615 /* RealmSwift in Frameworks */,
+				EE0A41D02AF5931E0070627A /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				EE34F81E2AE1A1C200732615 /* Realm in Frameworks */,
+				EE0A41CA2AF5931E0070627A /* FirebaseAnalytics in Frameworks */,
+				EE0A41D22AF5931E0070627A /* FirebaseAppCheck in Frameworks */,
+				EE0A41D72AF59D810070627A /* FirebaseFirestore in Frameworks */,
+				EE0A41CC2AF5931E0070627A /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
+				EE0A41CE2AF5931E0070627A /* FirebaseAnalyticsSwift in Frameworks */,
+				EE0A41D52AF59D5C0070627A /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EE0A41D32AF59D5C0070627A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		EE4A5A7B2A9567D8002D12BD /* Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +122,7 @@
 			children = (
 				EE9B12622A4DAF47002235B3 /* OpenWeather */,
 				EE9B12612A4DAF47002235B3 /* Products */,
+				EE0A41D32AF59D5C0070627A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -127,6 +151,7 @@
 				EE9B12692A4DAF47002235B3 /* Main.storyboard */,
 				EE9B126E2A4DAF49002235B3 /* LaunchScreen.storyboard */,
 				EE9B12712A4DAF49002235B3 /* Info.plist */,
+				EE0A41C62AF574F90070627A /* GoogleService-Info.plist */,
 			);
 			path = OpenWeather;
 			sourceTree = "<group>";
@@ -188,6 +213,13 @@
 			packageProductDependencies = (
 				EE34F81D2AE1A1C200732615 /* Realm */,
 				EE34F81F2AE1A1C200732615 /* RealmSwift */,
+				EE0A41C92AF5931E0070627A /* FirebaseAnalytics */,
+				EE0A41CB2AF5931E0070627A /* FirebaseAnalyticsOnDeviceConversion */,
+				EE0A41CD2AF5931E0070627A /* FirebaseAnalyticsSwift */,
+				EE0A41CF2AF5931E0070627A /* FirebaseAnalyticsWithoutAdIdSupport */,
+				EE0A41D12AF5931E0070627A /* FirebaseAppCheck */,
+				EE0A41D42AF59D5C0070627A /* FirebaseAuth */,
+				EE0A41D62AF59D810070627A /* FirebaseFirestore */,
 			);
 			productName = OpenWeather;
 			productReference = EE9B12602A4DAF47002235B3 /* OpenWeather.app */;
@@ -219,6 +251,7 @@
 			mainGroup = EE9B12572A4DAF47002235B3;
 			packageReferences = (
 				EE34F81C2AE1A1C200732615 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				EE0A41C82AF5931E0070627A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = EE9B12612A4DAF47002235B3 /* Products */;
 			projectDirPath = "";
@@ -235,6 +268,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE9B12702A4DAF49002235B3 /* LaunchScreen.storyboard in Resources */,
+				EE0A41C72AF574F90070627A /* GoogleService-Info.plist in Resources */,
 				EE9B126D2A4DAF49002235B3 /* Assets.xcassets in Resources */,
 				EE9B126B2A4DAF47002235B3 /* Main.storyboard in Resources */,
 			);
@@ -491,6 +525,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		EE0A41C82AF5931E0070627A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.17.0;
+			};
+		};
 		EE34F81C2AE1A1C200732615 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
@@ -502,6 +544,41 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		EE0A41C92AF5931E0070627A /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE0A41C82AF5931E0070627A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		EE0A41CB2AF5931E0070627A /* FirebaseAnalyticsOnDeviceConversion */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE0A41C82AF5931E0070627A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsOnDeviceConversion;
+		};
+		EE0A41CD2AF5931E0070627A /* FirebaseAnalyticsSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE0A41C82AF5931E0070627A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsSwift;
+		};
+		EE0A41CF2AF5931E0070627A /* FirebaseAnalyticsWithoutAdIdSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE0A41C82AF5931E0070627A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+		EE0A41D12AF5931E0070627A /* FirebaseAppCheck */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE0A41C82AF5931E0070627A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAppCheck;
+		};
+		EE0A41D42AF59D5C0070627A /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE0A41C82AF5931E0070627A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		EE0A41D62AF59D810070627A /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE0A41C82AF5931E0070627A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
 		EE34F81D2AE1A1C200732615 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = EE34F81C2AE1A1C200732615 /* XCRemoteSwiftPackageReference "realm-swift" */;

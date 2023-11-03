@@ -18,14 +18,11 @@ class SignInView: AuthorizationView {
     }
     
     override var otherAuthorizationButtonTitle: String {
-        ""
+        "I already have account"
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        NSLayoutConstraint.activate([
-            authorizationButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -30)
-        ])
     }
     
     required init?(coder: NSCoder) {

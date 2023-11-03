@@ -54,7 +54,7 @@ final class LogInView: AuthorizationView {
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             passwordRecoveryButton.trailingAnchor.constraint(equalTo: authorizationButton.trailingAnchor),
-            passwordRecoveryButton.bottomAnchor.constraint(equalTo: authorizationButton.topAnchor, constant: -15)
+            passwordRecoveryButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 0)
         ])
     }
 }

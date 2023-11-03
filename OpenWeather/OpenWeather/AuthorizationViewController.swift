@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 final class AuthorizationViewController: UIViewController {
 
@@ -69,7 +70,7 @@ final class AuthorizationViewController: UIViewController {
         scrollView.addSubview(authorizationView)
         authorizationView.translatesAutoresizingMaskIntoConstraints = false
         authorizationView.authorizationButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
-        authorizationView.otherAuthorizationButton.addTarget(self, action: #selector(createAccountButtonTapped), for: .touchUpInside)
+        authorizationView.otherAuthorizationButton.addTarget(self, action: #selector(otherAuthorizationButtonTapped), for: .touchUpInside)
     }
     
     private func setupConstraints() {
@@ -119,25 +120,61 @@ final class AuthorizationViewController: UIViewController {
     }
     
     @objc func loginButtonTapped() {
-        //        if authorizationView.loginTextField.hasText && authorizationView.passwordTextField.hasText {
-        //            let tabBarController = TabBarControllerBuilder.createTabBarController()
-        //            tabBarController.modalPresentationStyle = .fullScreen
-        //            present(tabBarController, animated: true)
-        //        } else {
-        //            let alertController = UIAlertController(title: "", message: "Неверно введены логин и/или пароль", preferredStyle: .alert)
-        //            alertController.addAction(UIAlertAction(title: "Ок", style: .destructive))
-        //        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            let tabBarController = TabBarControllerBuilder.createTabBarController()
-            tabBarController.modalPresentationStyle = .fullScreen
-            self.present(tabBarController, animated: true)
+        if authorizationView.loginTextField.hasText && authorizationView.passwordTextField.hasText {
+            let email = authorizationView.loginTextField.text
+            let password = authorizationView.passwordTextField.text
+            switch authorizationView.authorizationButtonTitle {
+                case "Log In":
+                    Auth.auth().signIn(withEmail: email!, password: password!) { authResult, error in
+                        if error != nil {
+                            UIView.animate(withDuration: 0.5) {
+                                self.authorizationView.errorLabel.text = "Invalid login or password. Try again."
+                                self.authorizationView.passwordTextField.text = ""
+                                self.authorizationView.loginTextField.text = ""
+                                self.view.layoutIfNeeded()
+                            }
+                        } else {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                let tabBarController = TabBarControllerBuilder.createTabBarController()
+                                tabBarController.modalPresentationStyle = .fullScreen
+                                self.present(tabBarController, animated: true)
+                            }
+                        }
+                    }
+                case "Sign In":
+                    Auth.auth().createUser(withEmail: email!, password: password!) { authResult, error in
+                        if error == nil {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                let tabBarController = TabBarControllerBuilder.createTabBarController()
+                                tabBarController.modalPresentationStyle = .fullScreen
+                                self.present(tabBarController, animated: true)
+                            }
+                        } else {
+                            UIView.animate(withDuration: 0.5) {
+                                self.authorizationView.errorLabel.text = error?.localizedDescription
+                                self.authorizationView.passwordTextField.text = ""
+                                self.authorizationView.loginTextField.text = ""
+                                self.view.layoutIfNeeded()
+                            }
+                        }
+                    }
+                default:
+                    print("error")
+            }
         }
     }
     
-    @objc func createAccountButtonTapped() {
+    @objc func otherAuthorizationButtonTapped() {
         let signInViewController = AuthorizationViewController()
         signInViewController.modalPresentationStyle = .fullScreen
-        signInViewController.authorizationView = SignInView(frame: .zero)
+        switch authorizationView.authorizationButtonTitle {
+            case "Log In":
+                signInViewController.authorizationView = SignInView(frame: .zero)
+            case "Sign In":
+                signInViewController.authorizationView = LogInView(frame: .zero)
+            default:
+                print("error")
+        }
         present(signInViewController, animated: true)
     }
 }

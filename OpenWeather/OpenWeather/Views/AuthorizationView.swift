@@ -23,13 +23,14 @@ class AuthorizationView: UIView {
     
     private let textColor: UIColor = .black
     
-    private let authorizationTitleLabel = UILabel()
+    private let authorizationLabel = UILabel()
     private let loginLabel = UILabel()
-    private let loginTextField = UITextField()
+    let loginTextField = UITextField()
     private let passwordLabel = UILabel()
-    private let passwordTextField = UITextField()
+    let passwordTextField = UITextField()
     let authorizationButton = UIButton()
     let otherAuthorizationButton = UIButton()
+    let errorLabel = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -51,15 +52,16 @@ class AuthorizationView: UIView {
         setupPasswordTextField()
         setupAuthorizationButton()
         setupOtherAuthorizationButton()
+        setupErrorLabel()
         setupConstraints()
     }
     
     private func setupAuthorizationTitleLabel() {
-        addSubview(authorizationTitleLabel)
-        authorizationTitleLabel.font = .systemFont(ofSize: 25, weight: .bold)
-        authorizationTitleLabel.textColor = .systemPurple
-        authorizationTitleLabel.text = authorizationLabelTitle
-        authorizationTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(authorizationLabel)
+        authorizationLabel.font = .systemFont(ofSize: 25, weight: .bold)
+        authorizationLabel.textColor = .systemPurple
+        authorizationLabel.text = authorizationLabelTitle
+        authorizationLabel.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func setupLoginLabel() {
@@ -130,19 +132,32 @@ class AuthorizationView: UIView {
         addSubview(otherAuthorizationButton)
         otherAuthorizationButton.setAttributedTitle(
             NSAttributedString(string: otherAuthorizationButtonTitle,
-                               attributes: [.font: UIFont.systemFont(ofSize: 14, weight: .bold),
+                               attributes: [.font: UIFont.systemFont(ofSize: 16, weight: .bold),
                                             .foregroundColor: UIColor.systemPurple.withAlphaComponent(0.8)]),
                                for: .normal
         )
         otherAuthorizationButton.translatesAutoresizingMaskIntoConstraints = false
     }
     
+    private func setupErrorLabel() {
+        addSubview(errorLabel)
+        errorLabel.textColor = .systemRed
+        errorLabel.numberOfLines = 2
+        errorLabel.font = .systemFont(ofSize: 12, weight: .bold)
+        errorLabel.textAlignment = .center
+        errorLabel.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            authorizationTitleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
-            authorizationTitleLabel.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+            authorizationLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
+            authorizationLabel.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
             
-            loginLabel.topAnchor.constraint(equalTo: authorizationTitleLabel.bottomAnchor, constant: 20),
+            errorLabel.topAnchor.constraint(equalTo: authorizationLabel.bottomAnchor, constant: 0),
+            errorLabel.leadingAnchor.constraint(equalTo: loginLabel.leadingAnchor),
+            errorLabel.trailingAnchor.constraint(equalTo: loginLabel.trailingAnchor),
+            
+            loginLabel.topAnchor.constraint(equalTo: errorLabel.bottomAnchor, constant: 5),
             loginLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
             loginLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
             
@@ -150,7 +165,7 @@ class AuthorizationView: UIView {
             loginTextField.leadingAnchor.constraint(equalTo: loginLabel.leadingAnchor),
             loginTextField.trailingAnchor.constraint(equalTo: loginLabel.trailingAnchor),
             
-            passwordLabel.topAnchor.constraint(equalTo: loginTextField.bottomAnchor, constant: 20),
+            passwordLabel.topAnchor.constraint(equalTo: loginTextField.bottomAnchor, constant: 10),
             passwordLabel.leadingAnchor.constraint(equalTo: loginTextField.leadingAnchor),
             passwordLabel.trailingAnchor.constraint(equalTo: loginTextField.trailingAnchor),
             
@@ -161,10 +176,9 @@ class AuthorizationView: UIView {
             otherAuthorizationButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10),
             otherAuthorizationButton.centerXAnchor.constraint(equalTo: authorizationButton.centerXAnchor),
             
-            authorizationButton.bottomAnchor.constraint(equalTo: otherAuthorizationButton.topAnchor, constant: -10),
-//            authorizationButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            authorizationButton.bottomAnchor.constraint(equalTo: otherAuthorizationButton.topAnchor, constant: -5),
             authorizationButton.trailingAnchor.constraint(equalTo: passwordTextField.trailingAnchor),
-            authorizationButton.leadingAnchor.constraint(equalTo: passwordTextField.leadingAnchor)
+            authorizationButton.leadingAnchor.constraint(equalTo: passwordTextField.leadingAnchor),
         ])
     }
 }
