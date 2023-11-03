@@ -15,7 +15,6 @@ final class WeatherForecastForDayCollectionViewCell: UICollectionViewCell {
     private let maxTemperatureLabel = UILabel()
     private let minTemperatureLabel = UILabel()
     private let temperatureSlider = UISlider()
-    private let temperatureGradientLayer = CAGradientLayer()
     
     private var maxTemperatureForAllDays = -100.0
     private var minTemperatureForAllDays = 100.0
@@ -38,6 +37,7 @@ final class WeatherForecastForDayCollectionViewCell: UICollectionViewCell {
         setupMaxTemperatureLabel()
         setupTemperatureSlider()
         setupMinTemperatureLabel()
+        setupConstraints()
     }
     
     private func setupWeekdayLabel() {
@@ -45,10 +45,6 @@ final class WeatherForecastForDayCollectionViewCell: UICollectionViewCell {
         weekdayLabel.text = "Today"
         weekdayLabel.font = .systemFont(ofSize: 16, weight: .light)
         weekdayLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            weekdayLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 35),
-            weekdayLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 0)
-        ])
     }
     
     private func setupWeatherIconImageView() {
@@ -56,12 +52,6 @@ final class WeatherForecastForDayCollectionViewCell: UICollectionViewCell {
         weatherIconImageView.image = UIImage(systemName: "cloud.fill")?.withTintColor(.lightGray.withAlphaComponent(0.8), renderingMode: .alwaysOriginal)
         weatherIconImageView.contentMode = .scaleAspectFit
         weatherIconImageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            weatherIconImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 120),
-            weatherIconImageView.centerYAnchor.constraint(equalTo: weekdayLabel.centerYAnchor),
-            weatherIconImageView.heightAnchor.constraint(equalToConstant: 30),
-            weatherIconImageView.widthAnchor.constraint(equalTo: weatherIconImageView.heightAnchor)
-        ])
     }
     
     private func setupMaxTemperatureLabel() {
@@ -69,10 +59,6 @@ final class WeatherForecastForDayCollectionViewCell: UICollectionViewCell {
         maxTemperatureLabel.text = "5°"
         maxTemperatureLabel.font = .monospacedDigitSystemFont(ofSize: 18, weight: .medium)
         maxTemperatureLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            maxTemperatureLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30),
-            maxTemperatureLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
-        ])
     }
     
     private func setupMinTemperatureLabel() {
@@ -81,10 +67,6 @@ final class WeatherForecastForDayCollectionViewCell: UICollectionViewCell {
         minTemperatureLabel.font = .systemFont(ofSize: 17, weight: .semibold)
         minTemperatureLabel.textColor = .darkGray
         minTemperatureLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            minTemperatureLabel.trailingAnchor.constraint(equalTo: temperatureSlider.leadingAnchor, constant: -10),
-            minTemperatureLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
-        ])
     }
     
     private func setupTemperatureSlider() {
@@ -93,11 +75,6 @@ final class WeatherForecastForDayCollectionViewCell: UICollectionViewCell {
         temperatureSlider.minimumTrackTintColor = .lightGray.withAlphaComponent(0.3)
         temperatureSlider.maximumTrackTintColor = .lightGray.withAlphaComponent(0.3)
         temperatureSlider.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            temperatureSlider.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -70),
-            temperatureSlider.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            temperatureSlider.widthAnchor.constraint(equalToConstant: temperatureSliderWidth)
-        ])
     }
     
     private func determineColorsForTemperatureSlider(with temperature: Double) -> CGColor {
@@ -117,17 +94,49 @@ final class WeatherForecastForDayCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    private func setupGradientLayer() {
+    private func setupGradientLayerForTemperatureSlider() {
         let colors = [determineColorsForTemperatureSlider(with: minTemperatureForOneDay), determineColorsForTemperatureSlider(with: maxTemperatureForOneDay)]
-        temperatureGradientLayer.colors = colors
-        temperatureGradientLayer.startPoint = .init(x: 0, y: 0.5)
-        temperatureGradientLayer.endPoint = .init(x: 1, y: 0.5)
-        temperatureGradientLayer.cornerRadius = 2
         let degreeWidth = temperatureSliderWidth / (maxTemperatureForAllDays - minTemperatureForAllDays)
         let xPoint = degreeWidth * minTemperatureForOneDay - degreeWidth * minTemperatureForAllDays
         let width =  degreeWidth * maxTemperatureForOneDay - xPoint - degreeWidth * minTemperatureForAllDays
-        temperatureGradientLayer.frame = .init(x: xPoint, y: temperatureSlider.center.y - 3, width: width, height: 4)
+        let temperatureGradientLayer = GradientLayer.createGradientLayer(with: CGRectMake(xPoint, temperatureSlider.center.y - 3, width, 4), colors: colors)
+        temperatureGradientLayer.cornerRadius = 2
+        temperatureGradientLayer.startPoint = .init(x: 0, y: 0.5)
+        temperatureGradientLayer.endPoint = .init(x: 1, y: 0.5)
         temperatureSlider.layer.insertSublayer(temperatureGradientLayer, at: 0)
+    }
+    
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            weekdayLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 35),
+            weekdayLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 0),
+            
+            weatherIconImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 120),
+            weatherIconImageView.centerYAnchor.constraint(equalTo: weekdayLabel.centerYAnchor),
+            weatherIconImageView.heightAnchor.constraint(equalToConstant: 30),
+            weatherIconImageView.widthAnchor.constraint(equalTo: weatherIconImageView.heightAnchor),
+            
+            maxTemperatureLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30),
+            maxTemperatureLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            
+            temperatureSlider.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -70),
+            temperatureSlider.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            temperatureSlider.widthAnchor.constraint(equalToConstant: temperatureSliderWidth),
+            
+            minTemperatureLabel.trailingAnchor.constraint(equalTo: temperatureSlider.leadingAnchor, constant: -10),
+            minTemperatureLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+        ])
+    }
+    
+    private func determineMaxAndMinTemperaturesForOneDay(with weathers: [Weather]) {
+        for weather in weathers {
+            if weather.maxTemperature > maxTemperatureForOneDay {
+                maxTemperatureForOneDay = weather.maxTemperature
+            }
+            if weather.minTemperature < minTemperatureForOneDay {
+                minTemperatureForOneDay = weather.minTemperature
+            }
+        }
     }
     
     func determineMaxAndMinTemperaturesForAllDay(with weathersForAllDays: [[Weather]]) {
@@ -143,53 +152,12 @@ final class WeatherForecastForDayCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    private func determineMaxAndMinTemperaturesForOneDay(with weathers: [Weather]) {
-        for weather in weathers {
-            if weather.maxTemperature > maxTemperatureForOneDay {
-                maxTemperatureForOneDay = weather.maxTemperature
-            }
-            if weather.minTemperature < minTemperatureForOneDay {
-                minTemperatureForOneDay = weather.minTemperature
-            }
-        }
-    }
-    
-    static func createWeatherIcon(weatherType: WeatherType) -> UIImage {
-        let yellow = UIColor.systemYellow.withAlphaComponent(0.7)
-        let gray = UIColor.lightGray.withAlphaComponent(0.6)
-        let white = UIColor.white.withAlphaComponent(0.7)
-        let blue = UIColor.blue.withAlphaComponent(0.6)
-        let orange = UIColor.systemOrange.withAlphaComponent(0.7)
-        switch weatherType {
-            case .clearSky:
-                return UIImage(systemName: "sun.max.fill")!.withTintColor(yellow, renderingMode: .alwaysOriginal)
-            case .fewClouds:
-                return UIImage(systemName: "cloud.sun.fill")!.withConfiguration(UIImage.SymbolConfiguration(paletteColors: [gray, yellow]))
-            case .scatteredClouds:
-                return UIImage(systemName: "cloud.fill")!.withTintColor(gray, renderingMode: .alwaysOriginal)
-            case .brokenClouds:
-                return UIImage(systemName: "cloud.fill")!.withTintColor(gray, renderingMode: .alwaysOriginal)
-            case .showerRain:
-                return UIImage(systemName: "cloud.rain.fill")!.withConfiguration(UIImage.SymbolConfiguration(paletteColors: [gray, blue]))
-            case .rain:
-                return UIImage(systemName: "cloud.sun.rain.fill")!.withConfiguration(UIImage.SymbolConfiguration(paletteColors: [gray, yellow, blue]))
-            case .thunderstorm:
-                return UIImage(systemName: "cloud.bolt.rain.fill")!.withConfiguration(UIImage.SymbolConfiguration(paletteColors: [gray, orange]))
-            case .snow:
-                return UIImage(systemName: "sun.snow.fill")!.withConfiguration(UIImage.SymbolConfiguration(paletteColors: [white, gray]))
-            case .mist:
-                return UIImage(systemName: "cloud.fog.fill")!.withConfiguration(UIImage.SymbolConfiguration(paletteColors: [white, gray]))
-            default:
-                return UIImage(systemName: "sun.max.trianglebadge.exclamationmark")!.withTintColor(.black, renderingMode: .alwaysOriginal)
-        }
-    }
-    
     func configure(with weathers: [Weather]) {
         determineMaxAndMinTemperaturesForOneDay(with: weathers)
         weekdayLabel.text = weathers[0].weekday
-        weatherIconImageView.image = WeatherForecastForDayCollectionViewCell.createWeatherIcon(weatherType: weathers[0].weatherType)
+        weatherIconImageView.image = WeatherIcon.createWeatherIcon(weatherType: weathers[0].weatherType)
         minTemperatureLabel.text = String(Int(minTemperatureForOneDay)) + "°"
         maxTemperatureLabel.text = String(Int(maxTemperatureForOneDay)) + "°"
-        setupGradientLayer()
+        setupGradientLayerForTemperatureSlider()
     }
 }

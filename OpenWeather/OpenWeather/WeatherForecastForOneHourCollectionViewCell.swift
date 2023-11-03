@@ -15,17 +15,18 @@ final class WeatherForecastForOneHourCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupContentViewCell()
+        setupContentView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupContentViewCell() {
+    private func setupContentView() {
         setupHourLabel()
         setupWeatherIcon()
         setupTemperatureLabel()
+        setupConstraints()
     }
     
     private func setupHourLabel() {
@@ -33,10 +34,6 @@ final class WeatherForecastForOneHourCollectionViewCell: UICollectionViewCell {
         hourLabel.text = "Now"
         hourLabel.font = .systemFont(ofSize: 14, weight: .light)
         hourLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            hourLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            hourLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10)
-        ])
     }
     
     private func setupWeatherIcon() {
@@ -44,12 +41,6 @@ final class WeatherForecastForOneHourCollectionViewCell: UICollectionViewCell {
         weatherIconImageView.image = UIImage(systemName: "cloud.fill")?.withTintColor(.lightGray.withAlphaComponent(0.8), renderingMode: .alwaysOriginal)
         weatherIconImageView.contentMode = .scaleAspectFit
         weatherIconImageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            weatherIconImageView.centerXAnchor.constraint(equalTo: hourLabel.centerXAnchor),
-            weatherIconImageView.topAnchor.constraint(equalTo: hourLabel.bottomAnchor, constant: 5),
-            weatherIconImageView.heightAnchor.constraint(equalToConstant: 25),
-            weatherIconImageView.widthAnchor.constraint(equalTo: weatherIconImageView.heightAnchor)
-        ])
     }
     
     private func setupTemperatureLabel() {
@@ -57,7 +48,18 @@ final class WeatherForecastForOneHourCollectionViewCell: UICollectionViewCell {
         temperatureLabel.text = "5°"
         temperatureLabel.font = .systemFont(ofSize: 17, weight: .regular)
         temperatureLabel.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
+            hourLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            hourLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            
+            weatherIconImageView.centerXAnchor.constraint(equalTo: hourLabel.centerXAnchor),
+            weatherIconImageView.topAnchor.constraint(equalTo: hourLabel.bottomAnchor, constant: 5),
+            weatherIconImageView.heightAnchor.constraint(equalToConstant: 25),
+            weatherIconImageView.widthAnchor.constraint(equalTo: weatherIconImageView.heightAnchor),
+            
             temperatureLabel.centerXAnchor.constraint(equalTo: hourLabel.centerXAnchor),
             temperatureLabel.topAnchor.constraint(equalTo: weatherIconImageView.bottomAnchor, constant: 5)
         ])
@@ -65,7 +67,7 @@ final class WeatherForecastForOneHourCollectionViewCell: UICollectionViewCell {
     
     func configure(nearestWeather: Weather) {
         hourLabel.text = nearestWeather.time
-        weatherIconImageView.image = WeatherForecastForDayCollectionViewCell.createWeatherIcon(weatherType: nearestWeather.weatherType)
+        weatherIconImageView.image = WeatherIcon.createWeatherIcon(weatherType: nearestWeather.weatherType)
         temperatureLabel.text = String(Int(nearestWeather.maxTemperature)) + "°"
     }
 }

@@ -17,6 +17,7 @@ final class HourlyWeatherForecastCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupCollectionView()
+        setupConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -47,6 +48,9 @@ final class HourlyWeatherForecastCollectionViewCell: UICollectionViewCell {
             withReuseIdentifier: HeaderCollectionViewCell.identifier
         )
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
             collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),

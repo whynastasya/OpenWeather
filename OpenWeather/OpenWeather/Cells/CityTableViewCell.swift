@@ -41,20 +41,14 @@ final class CityTableViewCell: UITableViewCell {
         setupCityTimeLabel()
         setupTemperatureRangeLabel()
         setupWeatherTypeLabel()
+        setupConstraints()
     }
     
     private func setupBackgroundView() {
-        backView.backgroundColor = .purple.withAlphaComponent(0.3)
         backView.layer.cornerRadius = dimensionWidth / 10
         contentView.addSubview(backView)
         backView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            backView.widthAnchor.constraint(equalToConstant: dimensionWidth),
-            backView.heightAnchor.constraint(equalToConstant: dimensionHeight),
-            backView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            backView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
-        ])
-        let gradientLayer = GradientView.createGradientLayer(with: dimensionWidth, dimensionHeight: dimensionHeight, colors: [UIColor.systemBlue.withAlphaComponent(0.3), .systemPurple.withAlphaComponent(0.6)].map( { $0.cgColor}))
+        let gradientLayer = GradientLayer.createGradientLayer(with: CGRectMake(0, 0, dimensionWidth, dimensionHeight), colors: [UIColor.systemBlue.withAlphaComponent(0.6), .systemPurple.withAlphaComponent(0.8)].map( { $0.cgColor}))
         gradientLayer.cornerRadius = dimensionWidth / 10
         backView.layer.addSublayer(gradientLayer)
         
@@ -65,10 +59,6 @@ final class CityTableViewCell: UITableViewCell {
         cityNameLabel.translatesAutoresizingMaskIntoConstraints = false
         cityNameLabel.font = UIFont.systemFont(ofSize: 28, weight: .light)
         cityNameLabel.textColor = .white
-        NSLayoutConstraint.activate([
-            cityNameLabel.topAnchor.constraint(equalTo: backView.topAnchor, constant: 15),
-            cityNameLabel.leadingAnchor.constraint(equalTo: backView.leadingAnchor, constant: 25)
-        ])
     }
     
     private func setupTemperatureNowLabel() {
@@ -76,10 +66,6 @@ final class CityTableViewCell: UITableViewCell {
         temperatureNowLabel.translatesAutoresizingMaskIntoConstraints = false
         temperatureNowLabel.textColor = .white
         temperatureNowLabel.font = UIFont.systemFont(ofSize: 55, weight: .light)
-        NSLayoutConstraint.activate([
-            temperatureNowLabel.topAnchor.constraint(equalTo: cityNameLabel.topAnchor),
-            temperatureNowLabel.trailingAnchor.constraint(equalTo: backView.trailingAnchor, constant: -20)
-        ])
     }
     
     private func setupCityTimeLabel() {
@@ -87,10 +73,6 @@ final class CityTableViewCell: UITableViewCell {
         cityTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         cityTimeLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         cityTimeLabel.textColor = .white
-        NSLayoutConstraint.activate([
-            cityTimeLabel.leadingAnchor.constraint(equalTo: cityNameLabel.leadingAnchor),
-            cityTimeLabel.topAnchor.constraint(equalTo: cityNameLabel.bottomAnchor, constant: 0)
-        ])
     }
     
     private func setupTemperatureRangeLabel() {
@@ -99,10 +81,6 @@ final class CityTableViewCell: UITableViewCell {
         temperatureRangeLabel.text = "text text text"
         temperatureRangeLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         temperatureRangeLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            temperatureRangeLabel.trailingAnchor.constraint(equalTo: temperatureNowLabel.trailingAnchor),
-            temperatureRangeLabel.bottomAnchor.constraint(equalTo: backView.bottomAnchor, constant: -15)
-        ])
     }
     
     private func setupWeatherTypeLabel() {
@@ -114,6 +92,27 @@ final class CityTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             weatherTypeLabel.leadingAnchor.constraint(equalTo: cityNameLabel.leadingAnchor),
             weatherTypeLabel.bottomAnchor.constraint(equalTo: temperatureRangeLabel.bottomAnchor)
+        ])
+    }
+    
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            backView.widthAnchor.constraint(equalToConstant: dimensionWidth),
+            backView.heightAnchor.constraint(equalToConstant: dimensionHeight),
+            backView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            backView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            
+            cityNameLabel.topAnchor.constraint(equalTo: backView.topAnchor, constant: 15),
+            cityNameLabel.leadingAnchor.constraint(equalTo: backView.leadingAnchor, constant: 25),
+            
+            temperatureNowLabel.topAnchor.constraint(equalTo: cityNameLabel.topAnchor),
+            temperatureNowLabel.trailingAnchor.constraint(equalTo: backView.trailingAnchor, constant: -20),
+            
+            cityTimeLabel.leadingAnchor.constraint(equalTo: cityNameLabel.leadingAnchor),
+            cityTimeLabel.topAnchor.constraint(equalTo: cityNameLabel.bottomAnchor, constant: 0),
+            
+            temperatureRangeLabel.trailingAnchor.constraint(equalTo: temperatureNowLabel.trailingAnchor),
+            temperatureRangeLabel.bottomAnchor.constraint(equalTo: backView.bottomAnchor, constant: -15)
         ])
     }
     

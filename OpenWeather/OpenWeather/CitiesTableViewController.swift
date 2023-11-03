@@ -65,10 +65,6 @@ final class CitiesTableViewController: UITableViewController, UISearchController
         150
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        1
-    }
-    
     override func tableView(
         _ tableView: UITableView,
         commit editingStyle: UITableViewCell.EditingStyle,

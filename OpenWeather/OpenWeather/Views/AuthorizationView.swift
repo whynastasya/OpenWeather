@@ -7,32 +7,59 @@
 
 import UIKit
 
-final class AuthorizationView: UIView {
+class AuthorizationView: UIView {
     
-    private var textColor = UIColor()
+    var authorizationButtonTitle: String {
+        "Title"
+    }
+    
+    var authorizationLabelTitle: String {
+        "Title"
+    }
+    
+    var otherAuthorizationButtonTitle: String {
+        "Title"
+    }
+    
+    private let textColor: UIColor = .black
+    
+    private let authorizationTitleLabel = UILabel()
     private let loginLabel = UILabel()
-    let loginTextField = UITextField()
+    private let loginTextField = UITextField()
     private let passwordLabel = UILabel()
-    let passwordTextField = UITextField()
-    let loginButton = UIButton()
-    private let passwordRecoveryButton = UIButton()
+    private let passwordTextField = UITextField()
+    let authorizationButton = UIButton()
+    let otherAuthorizationButton = UIButton()
     
-    convenience init(frame: CGRect, textColor: UIColor) {
-        self.init(frame: frame)
-        self.textColor = textColor
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setupView()
     }
-
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private func setupView() {
         backgroundColor = .white.withAlphaComponent(0.4)
         layer.cornerRadius = 20
         
+        setupAuthorizationTitleLabel()
         setupLoginLabel()
         setupLoginTextField()
         setupPasswordLabel()
         setupPasswordTextField()
-        setupPasswordRecoveryButton()
-        setupLoginButton()
+        setupAuthorizationButton()
+        setupOtherAuthorizationButton()
+        setupConstraints()
+    }
+    
+    private func setupAuthorizationTitleLabel() {
+        addSubview(authorizationTitleLabel)
+        authorizationTitleLabel.font = .systemFont(ofSize: 25, weight: .bold)
+        authorizationTitleLabel.textColor = .systemPurple
+        authorizationTitleLabel.text = authorizationLabelTitle
+        authorizationTitleLabel.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func setupLoginLabel() {
@@ -41,7 +68,6 @@ final class AuthorizationView: UIView {
         loginLabel.text = "Your email"
         loginLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         loginLabel.textColor = textColor.withAlphaComponent(0.6)
-        setupLoginLabelConstraints()
     }
     
     private func setupLoginTextField() {
@@ -59,7 +85,6 @@ final class AuthorizationView: UIView {
         loginTextField.leftViewMode = .always
         loginTextField.leftView = leftView
         loginTextField.placeholder = "example@mail.com"
-        setupLoginTextFieldConstraints()
     }
     
     private func setupPasswordLabel() {
@@ -68,7 +93,6 @@ final class AuthorizationView: UIView {
         passwordLabel.text = "Your password"
         passwordLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         passwordLabel.textColor = textColor.withAlphaComponent(0.6)
-        setupPasswordLabelConstraints()
     }
     
     private func setupPasswordTextField() {
@@ -86,84 +110,61 @@ final class AuthorizationView: UIView {
         passwordTextField.leftView = leftView
         passwordTextField.placeholder = "**********"
         passwordTextField.isSecureTextEntry = true
-        setupPasswordTextFieldConstraints()
     }
     
-    private func setupPasswordRecoveryButton() {
-        addSubview(passwordRecoveryButton)
-        passwordRecoveryButton.translatesAutoresizingMaskIntoConstraints = false
-        passwordRecoveryButton.setAttributedTitle(
-            NSAttributedString(string: "Forgot your password?",
-                               attributes: [.font: UIFont.systemFont(ofSize: 14, weight: .medium),
-                                            .foregroundColor: UIColor.gray,
-                                            .underlineStyle: NSUnderlineStyle.single.rawValue]),
-                               for: .normal
-        )
-        passwordRecoveryButton.contentHorizontalAlignment = .trailing
-        setupPasswordRecoveryButtonConstraints()
-    }
-    
-    private func setupLoginButton() {
-        addSubview(loginButton)
-        loginButton.translatesAutoresizingMaskIntoConstraints = false
-        loginButton.backgroundColor = .systemPurple.withAlphaComponent(0.9)
-        loginButton.layer.cornerRadius = 10
-        loginButton.clipsToBounds = true
-        loginButton.setAttributedTitle(
-            NSAttributedString(string: "Log In",
+    private func setupAuthorizationButton() {
+        addSubview(authorizationButton)
+        authorizationButton.translatesAutoresizingMaskIntoConstraints = false
+        authorizationButton.backgroundColor = .systemPurple.withAlphaComponent(0.9)
+        authorizationButton.layer.cornerRadius = 10
+        authorizationButton.clipsToBounds = true
+        authorizationButton.setAttributedTitle(
+            NSAttributedString(string: authorizationButtonTitle,
                                attributes: [.font: UIFont.systemFont(ofSize: 20, weight: .heavy)]),
                                for: .normal
         )
-        loginButton.setTitleColor(.gray, for: .selected)
-        setupLoginButtonConstraints()
+        authorizationButton.setTitleColor(.gray, for: .selected)
     }
     
-    private func setupLoginLabelConstraints() {
-        let guide = safeAreaLayoutGuide
-        NSLayoutConstraint.activate([
-            loginLabel.topAnchor.constraint(equalTo: guide.topAnchor, constant: 25),
-            loginLabel.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
-            loginLabel.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -20)
-        ])
+    private func setupOtherAuthorizationButton() {
+        addSubview(otherAuthorizationButton)
+        otherAuthorizationButton.setAttributedTitle(
+            NSAttributedString(string: otherAuthorizationButtonTitle,
+                               attributes: [.font: UIFont.systemFont(ofSize: 14, weight: .bold),
+                                            .foregroundColor: UIColor.systemPurple.withAlphaComponent(0.8)]),
+                               for: .normal
+        )
+        otherAuthorizationButton.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    private func setupLoginTextFieldConstraints() {
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
+            authorizationTitleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
+            authorizationTitleLabel.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+            
+            loginLabel.topAnchor.constraint(equalTo: authorizationTitleLabel.bottomAnchor, constant: 20),
+            loginLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            loginLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            
             loginTextField.topAnchor.constraint(equalTo: loginLabel.bottomAnchor, constant: 5),
             loginTextField.leadingAnchor.constraint(equalTo: loginLabel.leadingAnchor),
-            loginTextField.trailingAnchor.constraint(equalTo: loginLabel.trailingAnchor)
-        ])
-    }
-    
-    private func setupPasswordLabelConstraints() {
-        NSLayoutConstraint.activate([
+            loginTextField.trailingAnchor.constraint(equalTo: loginLabel.trailingAnchor),
+            
             passwordLabel.topAnchor.constraint(equalTo: loginTextField.bottomAnchor, constant: 20),
             passwordLabel.leadingAnchor.constraint(equalTo: loginTextField.leadingAnchor),
-            passwordLabel.trailingAnchor.constraint(equalTo: loginTextField.trailingAnchor)
-        ])
-    }
-    
-    private func setupPasswordTextFieldConstraints() {
-        NSLayoutConstraint.activate([
+            passwordLabel.trailingAnchor.constraint(equalTo: loginTextField.trailingAnchor),
+            
             passwordTextField.topAnchor.constraint(equalTo: passwordLabel.bottomAnchor, constant: 5),
             passwordTextField.leadingAnchor.constraint(equalTo: passwordLabel.leadingAnchor),
-            passwordTextField.trailingAnchor.constraint(equalTo: passwordLabel.trailingAnchor)
-        ])
-    }
-    
-    private func setupPasswordRecoveryButtonConstraints() {
-        NSLayoutConstraint.activate([
-            passwordRecoveryButton.trailingAnchor.constraint(equalTo: passwordTextField.trailingAnchor),
-            passwordRecoveryButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 5),
-            passwordRecoveryButton.widthAnchor.constraint(equalToConstant: 180)
-        ])
-    }
-    
-    private func setupLoginButtonConstraints() {
-        NSLayoutConstraint.activate([
-            loginButton.topAnchor.constraint(equalTo: passwordRecoveryButton.bottomAnchor, constant: 15),
-            loginButton.trailingAnchor.constraint(equalTo: passwordTextField.trailingAnchor),
-            loginButton.leadingAnchor.constraint(equalTo: passwordTextField.leadingAnchor)
+            passwordTextField.trailingAnchor.constraint(equalTo: passwordLabel.trailingAnchor),
+            
+            otherAuthorizationButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            otherAuthorizationButton.centerXAnchor.constraint(equalTo: authorizationButton.centerXAnchor),
+            
+            authorizationButton.bottomAnchor.constraint(equalTo: otherAuthorizationButton.topAnchor, constant: -10),
+//            authorizationButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            authorizationButton.trailingAnchor.constraint(equalTo: passwordTextField.trailingAnchor),
+            authorizationButton.leadingAnchor.constraint(equalTo: passwordTextField.leadingAnchor)
         ])
     }
 }

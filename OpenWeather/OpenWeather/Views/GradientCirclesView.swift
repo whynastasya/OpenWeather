@@ -7,12 +7,13 @@
 
 import UIKit
 
-final class GradientView: UIView {
+final class GradientCirclesView: UIView {
     
     private var gradientColors = [UIColor.systemPurple, UIColor.systemOrange].map( { $0.cgColor })
     
     convenience init(frame: CGRect, colors: [CGColor]) {
         self.init(frame: frame)
+        backgroundColor = .white
         self.gradientColors = colors
         setupView()
     }
@@ -51,21 +52,9 @@ final class GradientView: UIView {
             circleView.widthAnchor.constraint(equalToConstant: dimension),
             circleView.heightAnchor.constraint(equalToConstant: dimension)
         ])
-        let gradientLayer = GradientView.createGradientLayer(with: dimension, dimensionHeight: dimension, colors: gradientColors)
+        let gradientLayer = GradientLayer.createGradientLayer(with: CGRectMake(0, 0, dimension, dimension), colors: gradientColors)
         circleView.layer.addSublayer(gradientLayer)
         
         return circleView
-    }
-    
-    static func createGradientLayer(with dimensionWidth: CGFloat, dimensionHeight: CGFloat, colors: [CGColor]) -> CAGradientLayer {
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = CGRectMake(0, 0, dimensionWidth, dimensionHeight)
-        gradientLayer.colors = colors
-        gradientLayer.startPoint = CGPointMake(0.4, 0)
-        gradientLayer.endPoint = CGPointMake(0.3, 1)
-        gradientLayer.cornerRadius = dimensionWidth / 2
-        gradientLayer.masksToBounds = true
-        
-        return gradientLayer
     }
 }

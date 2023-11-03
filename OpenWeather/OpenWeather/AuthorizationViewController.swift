@@ -11,17 +11,19 @@ final class AuthorizationViewController: UIViewController {
 
     private let scrollView = UIScrollView()
     private let appNameLabel = UILabel()
-    private let gradientView = GradientView(frame: .zero,
+    private let gradientView = GradientCirclesView(frame: .zero,
                                             colors: [UIColor.white.cgColor,
                                                      UIColor.systemBlue.withAlphaComponent(0.5).cgColor,
                                                      UIColor.systemPurple.withAlphaComponent(0.7).cgColor])
-    private let authorizationView = AuthorizationView(frame: .zero, textColor: .black)
+    var authorizationView: AuthorizationView = LogInView(frame: .zero)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupGradientView()
         setupScrollView()
         WeatherData.shared.getWeathersData()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,9 +46,9 @@ final class AuthorizationViewController: UIViewController {
         let hideKeyboardGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(_ :)))
         scrollView.addGestureRecognizer(hideKeyboardGesture)
         
-        setupScrollViewConstraints()
         setupAuthorizationView()
         setupAppNameLabel()
+        setupConstraints()
     }
     
     private func setupAppNameLabel() {
@@ -56,39 +58,43 @@ final class AuthorizationViewController: UIViewController {
         appNameLabel.font = UIFont.systemFont(ofSize: 30, weight: .light)
         appNameLabel.textColor = .black
         appNameLabel.textAlignment = .center
-        setupAppNameLabelConstraints()
     }
     
     private func setupGradientView() {
         view.addSubview(gradientView)
         gradientView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            gradientView.topAnchor.constraint(equalTo: view.topAnchor),
-            gradientView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            gradientView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            gradientView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
     }
     
     private func setupAuthorizationView() {
         scrollView.addSubview(authorizationView)
         authorizationView.translatesAutoresizingMaskIntoConstraints = false
-        setupAuthorizationViewConstraints()
-        authorizationView.loginButton.addTarget(self, action: #selector(loginButtonPressed(_ :)), for: .touchUpInside)
+        authorizationView.authorizationButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+        authorizationView.otherAuthorizationButton.addTarget(self, action: #selector(createAccountButtonTapped), for: .touchUpInside)
     }
-
-    private func setupScrollViewConstraints() {
+    
+    private func setupConstraints() {
+        let contentLayoutGuide = scrollView.contentLayoutGuide
+        let frameLayoutGuide = scrollView.frameLayoutGuide
+        
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-    }
-    
-    private func setupAppNameLabelConstraints() {
-        let contentLayoutGuide = scrollView.contentLayoutGuide
-        NSLayoutConstraint.activate([
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            gradientView.topAnchor.constraint(equalTo: view.topAnchor),
+            gradientView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            gradientView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            gradientView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            authorizationView.heightAnchor.constraint(equalToConstant: 300),
+            authorizationView.leadingAnchor.constraint(equalTo: contentLayoutGuide.leadingAnchor, constant: 50),
+            authorizationView.trailingAnchor.constraint(equalTo: contentLayoutGuide.trailingAnchor, constant: -50),
+            authorizationView.centerXAnchor.constraint(equalTo: frameLayoutGuide.centerXAnchor),
+            authorizationView.centerYAnchor.constraint(equalTo: contentLayoutGuide.centerYAnchor),
+            contentLayoutGuide.heightAnchor.constraint(equalTo: frameLayoutGuide.heightAnchor),
+            contentLayoutGuide.widthAnchor.constraint(equalTo: frameLayoutGuide.widthAnchor),
+            
             appNameLabel.leadingAnchor.constraint(equalTo: contentLayoutGuide.leadingAnchor),
             appNameLabel.trailingAnchor.constraint(equalTo: contentLayoutGuide.trailingAnchor),
             appNameLabel.heightAnchor.constraint(equalToConstant: 50),
@@ -96,24 +102,10 @@ final class AuthorizationViewController: UIViewController {
         ])
     }
     
-    private func setupAuthorizationViewConstraints() {
-        let contentLayoutGuide = scrollView.contentLayoutGuide
-        let frameLayoutGuide = scrollView.frameLayoutGuide
-        NSLayoutConstraint.activate([
-            authorizationView.heightAnchor.constraint(equalToConstant: 280),
-            authorizationView.leadingAnchor.constraint(equalTo: contentLayoutGuide.leadingAnchor, constant: 50),
-            authorizationView.trailingAnchor.constraint(equalTo: contentLayoutGuide.trailingAnchor, constant: -50),
-            authorizationView.centerXAnchor.constraint(equalTo: frameLayoutGuide.centerXAnchor),
-            authorizationView.centerYAnchor.constraint(equalTo: contentLayoutGuide.centerYAnchor),
-            contentLayoutGuide.heightAnchor.constraint(equalTo: frameLayoutGuide.heightAnchor),
-            contentLayoutGuide.widthAnchor.constraint(equalTo: frameLayoutGuide.widthAnchor)
-        ])
-    }
-    
     @objc func keyboardWasShown(notification: Notification) {
         let userInfo = notification.userInfo! as NSDictionary
         let keyboardSize = (userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue).cgRectValue.size
-        let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
+        let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height - 270, right: 0.0)
         scrollView.contentInset = contentInsets
         scrollView.scrollIndicatorInsets = contentInsets
     }
@@ -126,19 +118,26 @@ final class AuthorizationViewController: UIViewController {
         scrollView.endEditing(true)
     }
     
-    @objc func loginButtonPressed(_ loginButton: UIButton) {
-//        if authorizationView.loginTextField.hasText && authorizationView.passwordTextField.hasText {
-//            let tabBarController = TabBarControllerBuilder.createTabBarController()
-//            tabBarController.modalPresentationStyle = .fullScreen
-//            present(tabBarController, animated: true)
-//        } else {
-//            let alertController = UIAlertController(title: "", message: "Неверно введены логин и/или пароль", preferredStyle: .alert)
-//            alertController.addAction(UIAlertAction(title: "Ок", style: .destructive))
-//        }
+    @objc func loginButtonTapped() {
+        //        if authorizationView.loginTextField.hasText && authorizationView.passwordTextField.hasText {
+        //            let tabBarController = TabBarControllerBuilder.createTabBarController()
+        //            tabBarController.modalPresentationStyle = .fullScreen
+        //            present(tabBarController, animated: true)
+        //        } else {
+        //            let alertController = UIAlertController(title: "", message: "Неверно введены логин и/или пароль", preferredStyle: .alert)
+        //            alertController.addAction(UIAlertAction(title: "Ок", style: .destructive))
+        //        }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             let tabBarController = TabBarControllerBuilder.createTabBarController()
             tabBarController.modalPresentationStyle = .fullScreen
             self.present(tabBarController, animated: true)
         }
+    }
+    
+    @objc func createAccountButtonTapped() {
+        let signInViewController = AuthorizationViewController()
+        signInViewController.modalPresentationStyle = .fullScreen
+        signInViewController.authorizationView = SignInView(frame: .zero)
+        present(signInViewController, animated: true)
     }
 }

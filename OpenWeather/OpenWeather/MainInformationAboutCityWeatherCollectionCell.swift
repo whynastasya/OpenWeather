@@ -30,6 +30,7 @@ final class MainInformationAboutCityWeatherCollectionCell: UICollectionViewCell 
         setupTemperatureNowLabel()
         setupWeatherTypeLabel()
         setupTemperatureRangeLabel()
+        setupConstraints()
     }
     
     private func setupCityNameLabel() {
@@ -37,10 +38,6 @@ final class MainInformationAboutCityWeatherCollectionCell: UICollectionViewCell 
         cityNameLabel.text = "Moscow"
         cityNameLabel.font = .systemFont(ofSize: 40, weight: .light)
         cityNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            cityNameLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            cityNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 50)
-        ])
     }
     
     private func setupTemperatureNowLabel() {
@@ -48,10 +45,6 @@ final class MainInformationAboutCityWeatherCollectionCell: UICollectionViewCell 
         temperatureNowLabel.text = "4°"
         temperatureNowLabel.font = .systemFont(ofSize: 80, weight: .ultraLight)
         temperatureNowLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            temperatureNowLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            temperatureNowLabel.topAnchor.constraint(equalTo: cityNameLabel.bottomAnchor, constant: 0)
-        ])
     }
     
     private func setupWeatherTypeLabel() {
@@ -59,10 +52,6 @@ final class MainInformationAboutCityWeatherCollectionCell: UICollectionViewCell 
         weatherTypeLabel.text = "Cloudly"
         weatherTypeLabel.font = .systemFont(ofSize: 20, weight: .light)
         weatherTypeLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            weatherTypeLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            weatherTypeLabel.topAnchor.constraint(equalTo: temperatureNowLabel.bottomAnchor, constant: 0)
-        ])
     }
     
     private func setupTemperatureRangeLabel() {
@@ -70,7 +59,19 @@ final class MainInformationAboutCityWeatherCollectionCell: UICollectionViewCell 
         temperatureRangeLabel.text = "Min: 8°, max: 5°"
         temperatureRangeLabel.font = .systemFont(ofSize: 20, weight: .light)
         temperatureRangeLabel.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
+            cityNameLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            cityNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 50),
+            
+            temperatureNowLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            temperatureNowLabel.topAnchor.constraint(equalTo: cityNameLabel.bottomAnchor, constant: 0),
+            
+            weatherTypeLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            weatherTypeLabel.topAnchor.constraint(equalTo: temperatureNowLabel.bottomAnchor, constant: 0),
+            
             temperatureRangeLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             temperatureRangeLabel.topAnchor.constraint(equalTo: weatherTypeLabel.bottomAnchor, constant: 0)
         ])
