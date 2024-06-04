@@ -5,11 +5,11 @@
 
 
 ## Скриншоты
-<img src="/OpenWeather/Screenshots/auth.png" width="500" height="300">
-<img src="/OpenWeather/Screenshots/Moscow.png" width="500" height="300">
-<img src="/OpenWeather/Screenshots/cities.png" width="500" height="300">
-<img src="/OpenWeather/Screenshots/add.png" width="500" height="300">
-<img src="/OpenWeather/Screenshots/Norilsk.png" width="500" height="300">
+<img src="/OpenWeather/Screenshots/auth.png" width="300" height="300">
+<img src="/OpenWeather/Screenshots/Moscow.png" width="300" height="300">
+<img src="/OpenWeather/Screenshots/cities.png" width="300" height="300">
+<img src="/OpenWeather/Screenshots/add.png" width="300" height="300">
+<img src="/OpenWeather/Screenshots/Norilsk.png" width="300" height="300">
 
 ## Технологии
 - UIKit (iOS 16.4)
